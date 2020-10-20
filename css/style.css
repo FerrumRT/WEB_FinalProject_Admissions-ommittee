@@ -1,0 +1,233 @@
+body.style1, body.style2, body.style5, body.style6, body.style7, body.style8, body.style9 {
+    background-color: white;
+}
+
+body.style3 {
+    background-color: darkslategrey;
+}
+
+body.style4 {
+    background-color: black;
+}
+
+.link {
+    padding: .5rem 1rem;
+    display: block;
+}
+
+.link.style1, .link.style2, .link.style5, .link.style6, .link.style7 {
+    color: black;
+}
+
+.link.style3, .link.style4, .link.style8, .link.style9 {
+    color: white;
+}
+
+.link.style6 {
+    font-size: 1.3em;
+}
+
+.link.style7 {
+    font-size: 0.5em;
+}
+
+.text-decoration-none.style1, .text-decoration-none.style2, .text-decoration-none.style6, .text-decoration-none.style7 {
+    color: darkviolet;
+}
+
+.text-decoration-none.style3, .text-decoration-none.style4, .text-decoration-none.style8, .text-decoration-none.style9 {
+    color: white;
+}
+
+.text-decoration-none.style5 {
+    color: black;
+}
+
+.text-decoration-none.style6 {
+    font-size: 1.3em;
+}
+
+.text-decoration-none.style7 {
+    font-size: 0.7em;
+}
+
+nav.style1, nav.style6, nav.style7 {
+    background-color: #0c5460;
+}
+
+nav.style2 {
+    background-color: white;
+    color: black;
+}
+
+nav.style3, nav.style4 {
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px white solid;
+}
+
+nav.style5 {
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px black solid;
+}
+
+nav.style8 {
+    background-color: darkblue;
+}
+
+nav.style9 {
+    background-color: darkmagenta;
+}
+
+.nav-link.style1, .nav-link.style3, .nav-link.style4, .nav-link.style6, .nav-link.style7, .nav-link.style8, .nav-link.style9 {
+    color: white;
+}
+
+.nav-link.style2, .nav-link.style5 {
+    color: black;
+}
+
+.nav-link.style6 {
+    font-size: 1.3em;
+}
+
+.nav-link.style7 {
+    font-size: 0.7em;
+}
+
+label.style1, label.style2, label.style5, label.style6, label.style7 {
+    color: black;
+}
+
+label.style3, label.style4, label.style8, label.style9 {
+    color: white;
+}
+
+label.style6 {
+    font-size: 1.3em;
+}
+
+label.style7 {
+    font-size: 0.7em;
+}
+
+.myNav.style8 {
+    background-color: darkblue;
+}
+
+.myNav.style9 {
+    background-color: darkmagenta;
+}
+
+.custom-select.style3, .custom-select.style4 {
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+}
+
+.custom-select.style3 option, .custom-select.style4 option {
+    color: black;
+}
+
+.custom-select.style8 {
+    color: darkblue;
+}
+
+.custom-select.style9 {
+    color: darkmagenta;
+}
+
+.custom-select.style6, .custom-select.style6 option {
+    font-size: 1.3em;
+}
+
+.custom-select.style7, .custom-select.style7 option {
+    font-size: 0.7em;
+}
+
+.jumbotron.style1, .jumbotron.style6, .jumbotron.style7, .btn.style1, .btn.style6, .btn.style7 {
+    background-color: dodgerblue;
+    color: white;
+    border: 0;
+}
+
+.jumbotron.style2, .btn.style2 {
+    background-color: white;
+    color: black;
+    border: 1px darkviolet solid;
+}
+
+.jumbotron.style3, .btn.style3 {
+    background-color: white;
+    color: darkslategrey;
+    border: 0;
+}
+
+.jumbotron.style4, .btn.style4 {
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    border: 1px white solid;
+}
+
+.jumbotron.style5, .btn.style5 {
+    background-color: rgba(0, 0, 0, 0);
+    color: black;
+    border: 1px black solid;
+}
+
+.jumbotron.style8 {
+    background-color: rgba(0, 0, 139, 0.3);
+    color: darkblue;
+    border: 1px blue solid;
+}
+
+.btn.style8 {
+    background-color: white;
+    color: darkblue;
+}
+
+.jumbotron.style9, .btn.style9 {
+    background-color: white;
+    color: darkmagenta;
+    border: 1px darkviolet solid;
+}
+
+h2.style6 {
+    font-size: 3em !important;
+}
+
+h2.style7 {
+    font-size: 1.5em !important;
+}
+
+p.style6 {
+    font-size: 1.3em !important;
+}
+
+p.style7 {
+    font-size: 0.7em !important;
+}
+
+.card.style4 {
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    border: 1px white solid;
+}
+
+.card-link.style4 {
+    color: white;
+}
+
+.card-link.style5 {
+    color: black;
+}
+
+.card-link.style6{
+    font-size: 1em;
+}
+
+.card-link.style7{
+    font-size: 0.7em;
+}
+
+img.style4, img.style5 {
+    filter: grayscale(1);
+}
