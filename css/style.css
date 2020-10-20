@@ -4,3 +4,25 @@
 .link:hover{
  color: white!important;
 }
+.pulse{
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
+}
+
+.grad-box {position: relative;margin: 5px;width:250px;height:250px;background-color: #FFF;box-shadow: 0 0 10px rgba(0, 0, 0, 0.60);overflow: hidden;}
+.grad-box span{position:absolute;bottom:0px;left:0px;width:256px;height:35%;color:#FFF;font-weight:bold;text-transform:uppercase;background-color:rgba(0, 0, 0, 0.50);padding:20px 30px;}
+.grad-box:hover span{height:50%;transition:0.3s}
+.grad-box:hover img{-webkit-transform: scale(1.05);-moz-transform: scale(1.05);-o-transform: scale(1.05);}
+.grad-box-img{width:250px;}
+.grad-box img {-moz-transition: all 0.5s ease-out;-o-transition: all 0.5s ease-out;-webkit-transition: all 0.5s ease-out;}
+.grad-box img:hover{-webkit-transform: scale(1.05);-moz-transform: scale(1.05);-o-transform: scale(1.05);}
+
+.flex-container {
+    display: inline-flex;
+    display: -webkit-inline-flex;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -webkit-justify-content: center;
+    justify-content: center;
+    padding-bottom: 20px;
+}
