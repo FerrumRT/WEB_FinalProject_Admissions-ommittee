@@ -1,20 +1,20 @@
-<?
+<?php
 class Education_degree{
     private $edu_deg_id;
-    private $edu_deg;
+    private $edu_deg_name;
 
-    function __counstruct($id, $edu_deg){
-        $this->$edu_deg = $edu_deg;
-        $this->$edu_deg_id = $id;
+    function __construct($id, $edu_deg_name){
+        $this->edu_deg_name = $edu_deg_name;
+        $this->edu_deg_id = $id;
     }
 
     //getters
-    public function get_edu_deg(){ return $this->$edu_deg; }
-    public function get_edu_deg_id(){ return $this->$edu_deg_id; }
+    public function get_edu_deg_name(){ return $this->edu_deg_name; }
+    public function get_edu_deg_id(){ return $this->edu_deg_id; }
 
     //setters
-    public function set_edu_deg($edu_deg){ $this->$edu_deg = $edu_deg; }
-    public function set_edu_deg_id($edu_deg_id){ $this->$edu_deg_id = $edu_deg_id; }
+    public function set_edu_deg_name($edu_deg_name){ $this->edu_deg_name = $edu_deg_name; }
+    public function set_edu_deg_id($edu_deg_id){ $this->edu_deg_id = $edu_deg_id; }
 
 }
 
