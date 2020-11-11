@@ -1,6 +1,5 @@
 <?php
     include "db_faculty.php";
-    include "db_edu_deg.php";
 
     $handle = fopen('db_faculty.php', 'a+');
 
@@ -137,7 +136,7 @@
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Faculty name</th>
-                  <th scope="col">Faculty code/th>
+                  <th scope="col">Faculty code</th>
                   <th scope="col">Description</th>
                   <th scope="col">Skills</th>
                   <th scope="col">Outcomes</th>

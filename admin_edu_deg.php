@@ -101,7 +101,7 @@
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Education degree name</th>
-                  <th scope="col">Action</th>
+                  <th scope="col">Options</th>
                 </tr>
               </thead>
               <tbody>

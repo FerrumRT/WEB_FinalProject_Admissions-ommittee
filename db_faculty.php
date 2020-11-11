@@ -1,4 +1,5 @@
 <?php
+include "db_edu_deg.php";
 include "classes/Faculty.php";
 $faculties = array();
 

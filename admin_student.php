@@ -131,7 +131,7 @@
                   <th scope="col">School name</th>
                   <th scope="col">University name</th>
                   <th scope="col">Edu Degree</th>
-                  <th scope="col">Action</th>
+                  <th scope="col">Options</th>
                 </tr>
               </thead>
               <tbody>

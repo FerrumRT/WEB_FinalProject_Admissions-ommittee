@@ -118,7 +118,7 @@
                   <th scope="col">Password</th>
                   <th scope="col">Birth date</th>
                   <th scope="col">Phone number</th>
-                  <th scope="col">Action</th>
+                  <th scope="col">Options</th>
                 </tr>
               </thead>
               <tbody>
