@@ -5,14 +5,14 @@ class News
   private $title;
   private $content;
   private $created_data;
-  private $ad_mem_id;
-  function __construct($id, $title, $content, $created_data, $ad_mem_id)
+  private $ad_mem;
+  function __construct($id, $title, $content, $created_data, $ad_mem)
   {
     $this->news_id = $id;
     $this->title = $title;
     $this->content = $content;
     $this->created_data = $created_data;
-    $this->ad_mem_id = $ad_mem_id;
+    $this->ad_mem = $ad_mem;
   }
 
   function getId()
@@ -33,7 +33,7 @@ class News
   }
   function getAdMemId()
   {
-    return $this->ad_mem_id;
+    return $this->ad_mem;
   }
 
   function setId($news_id)
@@ -52,9 +52,9 @@ class News
   {
     $this->created_data=$created_data;
   }
-  function setAdMemId($ad_mem_id)
+  function setAdMemId($ad_mem)
   {
-    $this->ad_mem_id=$ad_mem_id;
+    $this->ad_mem=$ad_mem;
   }
 
 }
