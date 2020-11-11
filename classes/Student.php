@@ -15,6 +15,7 @@ class Student extends Person{
     }
 
     //getters
+    public function get_student_id(){ return $this->student_id; }
     public function get_login(){ return parent::get_login(); }
     public function get_st_pic_url(){ return $this->st_pic_url; }
     public function get_edu_deg(){ return $this->edu_deg; }
@@ -23,6 +24,7 @@ class Student extends Person{
     public function get_university_name(){ return $this->university_name; }
 
     //setters
+    public function set_student_id($student_id){ $this->student_id = $student_id; }
     public function set_st_pic_url($st_pic_url){ $this->st_pic_url = $st_pic_url; }
     public function set_edu_deg($edu_deg){ $this->edu_deg = $edu_deg; }
     public function set_confirm_doc_url($confirm_doc_url){ $this->confirm_doc_url = $confirm_doc_url; }

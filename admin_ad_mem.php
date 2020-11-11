@@ -1,15 +1,15 @@
 <?php
-    include "db_student.php";
+    include "db_ad_mem.php";
 
-    $handle = fopen('db_student.php', 'a+');
+    $handle = fopen('db_ad_mem.php', 'a+');
 
     $is_added = 0;
     $check_login = true;
     
     if(!empty($_POST["first_name"]) && !empty($_POST["last_name"]) && !empty($_POST["login"]) &&
         !empty($_POST["password"]) ){
-            foreach ($students as $key=>$st)
-                if(!($st->get_login() == $_POST["login"])){
+            foreach ($ad_members as $key=>$ad)
+                if(!($ad->get_login() == $_POST["login"])){
                     $check_login = true;
                 }
                 else{
@@ -18,7 +18,7 @@
                 }
 
             if($check_login){
-                fwrite($handle, "\n\$students[] = new Student(".(sizeof($students)+1).",\"".$_POST["first_name"]."\",\"".$_POST["last_name"]."\",\"".$_POST["login"]."\",\"".$_POST["password"]."\",\$edu_degrees[".$_POST["edu_deg"]."]);");
+                fwrite($handle, "\n\$ad_members[] = new Admission_member(".(sizeof($ad_members)+1).",\"".$_POST["first_name"]."\",\"".$_POST["last_name"]."\",\"".$_POST["login"]."\",\"".$_POST["password"]."\");");
                 $is_added = 1;
             }else
                 $is_added = 2;
@@ -65,10 +65,10 @@
       </div>
     </nav>
     <nav class="nav nav-pills nav-fill" style="background-color: #1c1c1c;">
-      <a class="nav-link link text-white disabled" href="">Students</a>
-      <a class="nav-link link text-white" href="admin_ad_mem.php">Admission members</a>
-      <a class="nav-link link text-white" href="admin_deu_deg.php">Education degrees</a>
-      <a class="nav-link link text-white" href="admin_faculties.php">Faculties</a>
+      <a class="nav-link link" href="admin_student.php">Students</a>
+      <a class="nav-link link disabled" href="admin_ad_mem.php">Admission members</a>
+      <a class="nav-link link" href="admin_deu_deg.php">Education degrees</a>
+      <a class="nav-link link" href="admin_faculties.php">Faculties</a>
     </nav>
 
 
@@ -89,7 +89,7 @@
             <?php
                 }
             ?>
-            <h3>Student adding</h3>
+            <h3 class = "mb-3">Admission member adding</h3>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <div class="form-group">
                     <input type="text" class="form-control" name="first_name" placeholder="Student name">
@@ -103,19 +103,52 @@
                 <div class="form-group">
                     <input type="password" class="form-control" name="password" placeholder="Password">
                 </div>
-                <div class="form-group">
-                    <select class="form-control" name="edu_deg">
-                        <?php 
-                            foreach($edu_degrees as $key=>$value){
-                        ?>
-                            <option value = "<?=$key?>"><?=$value->get_edu_deg_name()?></option>
-                        <?php
-                            }
-                        ?>
-                    </select>
-                </div>
                 <button type="submit" class="btn btn-outline-success">Add</button>
             </form>
+
+            <h3 class= "pt-5">Admission member list</h3>
+            <table class = "table table-striped mt-3">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">First name</th>
+                  <th scope="col">Middle name</th>
+                  <th scope="col">Last name</th>
+                  <th scope="col">Login</th>
+                  <th scope="col">Password</th>
+                  <th scope="col">Birth date</th>
+                  <th scope="col">Phone number</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php
+                    foreach($ad_members as $id => $ad_member){
+                  ?>
+                <tr>
+
+                  <td><?=$ad_member->get_ad_mem_id()?></td>
+                  <td><?=$ad_member->get_first_name()?></td>
+                  <td><?=$ad_member->get_middle_name()?></td>
+                  <td><?=$ad_member->get_last_name()?></td>
+                  <td><?=$ad_member->get_login()?></td>
+                  <td><?=$ad_member->get_password()?></td>
+                  <td><?=$ad_member->get_birth_date()?></td>
+                  <td><?=$ad_member->get_phone_num()?></td>
+                  <td>
+                    <form action="get">
+                      <button type = "submit" class = "btn btn-sm btn-outline-success">Edit</button>
+                    </form>
+                    <form action="post">
+                      <button type = "submit" class = "btn btn-sm btn-outline-danger mt-1">Delete</button>
+                      </form>
+                  </td>
+                </tr>
+                <?php
+                    }
+                  ?>
+              </tbody>
+            </table>
         </div>
     </div>
 

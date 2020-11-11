@@ -1,4 +1,5 @@
-<?
+<?php
+include "Person.php";
 class Admission_member extends Person{
     private $ad_mem_id;
     private $ad_pic_url;
