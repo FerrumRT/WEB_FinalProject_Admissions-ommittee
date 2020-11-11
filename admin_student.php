@@ -65,9 +65,9 @@
       </div>
     </nav>
     <nav class="nav nav-pills nav-fill" style="background-color: #1c1c1c;">
-      <a class="nav-link link disabled" href="">Students</a>
+      <a class="nav-link link disabled" href="admin_student.php">Students</a>
       <a class="nav-link link" href="admin_ad_mem.php">Admission members</a>
-      <a class="nav-link link" href="admin_deu_deg.php">Education degrees</a>
+      <a class="nav-link link" href="admin_edu_deg.php">Education degrees</a>
       <a class="nav-link link" href="admin_faculties.php">Faculties</a>
     </nav>
 
@@ -130,6 +130,7 @@
                   <th scope="col">Phone number</th>
                   <th scope="col">School name</th>
                   <th scope="col">University name</th>
+                  <th scope="col">Edu Degree</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -149,8 +150,10 @@
                   <td><?=$student->get_phone_num()?></td>
                   <td><?=$student->get_school_name()?></td>
                   <td><?=$student->get_university_name()?></td>
+                  <td><?=$student->get_edu_deg()->get_edu_deg_name()?></td>
                   <td>
-                    <form action="get">
+                    <form action="admin_edit_student.php">
+                      <input type="hidden" value="<?=$id?>">
                       <button type = "submit" class = "btn btn-sm btn-outline-success">Edit</button>
                     </form>
                     <form action="post">

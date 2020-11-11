@@ -1,24 +1,23 @@
 <?php
-    include "db_ad_mem.php";
+    include "db_edu_deg.php";
 
-    $handle = fopen('db_ad_mem.php', 'a+');
+    $handle = fopen('db_edu_deg.php', 'a+');
 
     $is_added = 0;
-    $check_login = true;
+    $check_name = true;
     
-    if(!empty($_POST["first_name"]) && !empty($_POST["last_name"]) && !empty($_POST["login"]) &&
-        !empty($_POST["password"]) ){
-            foreach ($ad_members as $key=>$ad)
-                if(!($ad->get_login() == $_POST["login"])){
-                    $check_login = true;
+    if(!empty($_POST["edu_deg_name"])){
+            foreach ($edu_degrees as $key=>$edu_deg)
+                if(!($edu_deg->get_edu_deg_name() == $_POST["edu_deg_name"])){
+                    $check_name = true;
                 }
                 else{
-                    $check_login = false;
+                    $check_name = false;
                     break;
                 }
 
-            if($check_login){
-                fwrite($handle, "\n\$ad_members[] = new Admission_member(".(sizeof($ad_members)+1).",\"".$_POST["first_name"]."\",\"".$_POST["last_name"]."\",\"".$_POST["login"]."\",\"".$_POST["password"]."\");");
+            if($check_name){
+                fwrite($handle, "\n\$edu_degrees[] = new Education_degree(".(sizeof($edu_degrees)+1).",\"".$_POST["edu_deg_name"]."\");");
                 $is_added = 1;
             }else
                 $is_added = 2;
@@ -66,8 +65,8 @@
     </nav>
     <nav class="nav nav-pills nav-fill" style="background-color: #1c1c1c;">
       <a class="nav-link link" href="admin_student.php">Students</a>
-      <a class="nav-link link disabled" href="admin_ad_mem.php">Admission members</a>
-      <a class="nav-link link" href="admin_edu_deg.php">Education degrees</a>
+      <a class="nav-link link" href="admin_ad_mem.php">Admission members</a>
+      <a class="nav-link link disabled" href="admin_edu_deg.php">Education degrees</a>
       <a class="nav-link link" href="admin_faculties.php">Faculties</a>
     </nav>
 
@@ -84,60 +83,38 @@
                 }else if($is_added == 2){
             ?>
             <div class="alert alert-danger" role="alert">
-                There already has this login!
+                There already has this education degree!
             </div>
             <?php
                 }
             ?>
-            <h3 class = "mb-3">Admission member adding</h3>
+            <h3 class = "mb-3">Education degree adding</h3>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="first_name" placeholder="Admission member name">
+                    <input type="text" class="form-control" name="edu_deg_name" placeholder="Education degree name">
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="last_name" placeholder="Admission member lastname">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="login" placeholder="login">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" name="password" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-outline-success">Add</button>
+                <button type="submit" class="btn btn-outline-dark">Add</button>
             </form>
-
-            <h3 class= "pt-5">Admission member list</h3>
+            <h3 class= "pt-5">Education degree list</h3>
             <table class = "table table-striped mt-3">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">ID</th>
-                  <th scope="col">First name</th>
-                  <th scope="col">Middle name</th>
-                  <th scope="col">Last name</th>
-                  <th scope="col">Login</th>
-                  <th scope="col">Password</th>
-                  <th scope="col">Birth date</th>
-                  <th scope="col">Phone number</th>
+                  <th scope="col">Education degree name</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
               <?php
-                    foreach($ad_members as $id => $ad_member){
+                    foreach($edu_degrees as $id => $edu_degree){
                   ?>
                 <tr>
 
-                  <td><?=$ad_member->get_ad_mem_id()?></td>
-                  <td><?=$ad_member->get_first_name()?></td>
-                  <td><?=$ad_member->get_middle_name()?></td>
-                  <td><?=$ad_member->get_last_name()?></td>
-                  <td><?=$ad_member->get_login()?></td>
-                  <td><?=$ad_member->get_password()?></td>
-                  <td><?=$ad_member->get_birth_date()?></td>
-                  <td><?=$ad_member->get_phone_num()?></td>
+                  <td><?=$edu_degree->get_edu_deg_id()?></td>
+                  <td><?=$edu_degree->get_edu_deg_name()?></td>
                   <td>
-                    <form action="get">
-
+                    <form action="admin_edit_edu_deg.php">
+                      <input type="hidden" value="<?=$id?>">
                       <button type = "submit" class = "btn btn-sm btn-outline-success">Edit</button>
                     </form>
                     <form action="post">
