@@ -5,19 +5,19 @@ class Message
   private $message_text;
   private $read_by_reciever;
   private $send_date;
-  private $student_id;
-  private $ad_mem_id;
-  private $chat_id;
+  private $student;
+  private $ad_mem;
+  private $chat;
 
-  function __construct($id, $message_text, $read_by_reciever, $send_date, $student_id, $ad_mem_id, $chat_id)
+  function __construct($id, $message_text, $read_by_reciever, $send_date, $student, $ad_mem, $chat)
   {
     $this->chats_id = $id;
     $this->message_text = $message_text;
     $this->read_by_reciever = $read_by_reciever;
     $this->send_date = $send_date;
-    $this->student_id = $student_id;
-    $this->ad_mem_id = $ad_mem_id;
-    $this->chat_id = $chat_id;
+    $this->student = $student;
+    $this->ad_mem = $ad_mem;
+    $this->chat = $chat;
   }
 
   function get_id()
@@ -36,17 +36,17 @@ class Message
   {
     return $this->send_date;
   }
-  function get_student_id()
+  function get_student()
   {
-    return $this->student_id;
+    return $this->student;
   }
-  function get_ad_mem_id()
+  function get_ad_mem()
   {
-    return $this->ad_mem_id;
+    return $this->ad_mem;
   }
-  function get_chat_id()
+  function get_chat()
   {
-    return $this->chat_id;
+    return $this->chat;
   }
 
   function set_Id($message_id)
@@ -65,17 +65,17 @@ class Message
   {
     $this->send_date=$send_date;
   }
-  function set_student_id($student_id)
+  function set_student($student)
   {
-    $this->student_id=$student_id;
+    $this->student=$student;
   }
-  function set_ad_mem_id($ad_mem_id)
+  function set_ad_mem($ad_mem)
   {
-    $this->ad_mem_id=$ad_mem_id;
+    $this->ad_mem=$ad_mem;
   }
-  function set_chat_id($chat_id)
+  function set_chat($chat)
   {
-    $this->chat_id=$chat_id;
+    $this->chat=$chat;
   }
 
 }

@@ -3,13 +3,13 @@ class Certificates
 {
   private $certificates_id;
   private $certificates_url;
-  private $student_id;
+  private $student;
 
-  function __construct($certificates_id, $certificates_url, $student_id)
+  function __construct($certificates_id, $certificates_url, $student)
   {
     $this->certificates_id = $certificates_id;
     $this->certificates_url = $certificates_url;
-    $this->student_id = $student_id;
+    $this->student = $student;
   }
 
   function get_id()
@@ -20,9 +20,9 @@ class Certificates
   {
     return $this->certificates_url;
   }
-  function get_student_id()
+  function get_student()
   {
-    return $this->student_id;
+    return $this->student;
   }
 
   function set_Id($certificates_id)
@@ -33,9 +33,9 @@ class Certificates
   {
     $this->certificates_url=$certificates_url;
   }
-  function set_student_id($student_id)
+  function set_student($student)
   {
-    $this->student_id=$student_id;
+    $this->student=$student;
   }
 }
 
