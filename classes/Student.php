@@ -1,15 +1,17 @@
 <?
 class Student extends Person{
+    private $student_id;
     private $st_pic_url;
     private $edu_deg;
     private $confirm_doc_url;
     private $school_name;
     private $university_name;
 
-    function __counstruct($first_name, $last_name, $login, $password, $edu_deg, $confirm_doc_url){
+    function __counstruct($id, $first_name, $last_name, $login, $password, $edu_deg, $confirm_doc_url){
         parent::__counstruct($first_name, $last_name, $login, $password);
         $this->$edu_deg = $edu_deg;
         $this->$confirm_doc_url = $confirm_doc_url;
+        $this->$student_id = $id;
     }
 
     //getters

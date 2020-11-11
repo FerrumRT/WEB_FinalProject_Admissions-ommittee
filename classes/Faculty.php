@@ -1,5 +1,6 @@
 <?
 class Faculty{
+    private $faculty_id;
     private $faculty_name;
     private $code;
     private $description;
@@ -8,7 +9,8 @@ class Faculty{
     private $leading_position;
     private $edu_deg;
 
-    function __counstruct($faculty_name, $code, $description, $skills, $outcomes, $leading_position, $edu_deg){
+    function __counstruct($id, $faculty_name, $code, $description, $skills, $outcomes, $leading_position, $edu_deg){
+        $this->$faculty_id = $id;
         $this->$faculty_name = $faculty_name;
         $this->$code = $code;
         $this->$description = $description;
@@ -19,6 +21,7 @@ class Faculty{
     }
 
     //getters
+    public function get_faculty_id(){ return $this->$faculty_id; }
     public function get_faculty_name(){ return $this->$faculty_name; }
     public function get_code(){ return $this->$code; }
     public function get_description(){ return $this->$description; }
@@ -28,6 +31,7 @@ class Faculty{
     public function get_edu_deg(){ return $this->$edu_deg; }
 
     //setters
+    public function set_faculty_id($faculty_id){ $this->$faculty_id = $faculty_id; }
     public function set_faculty_name($faculty_name){ $this->$faculty_name = $faculty_name; }
     public function set_code($code){ $this->$code = $code; }
     public function set_description($description){ $this->$description = $description; }
