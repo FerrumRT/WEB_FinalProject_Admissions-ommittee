@@ -48,7 +48,8 @@ class FacultiesController extends Controller
     public function show(int $id)
     {
         $faculty = Faculty::find($id);
-        return view("pages/faculty/show")->with('title', "Faculty - Admission")->with("faculty", $faculty);
+        $edu_name = EducationDegree::find($faculty->education_degree_id)->name;
+        return view("pages/faculty/show")->with('title', "Faculty - Admission")->with("faculty", $faculty)->with('edu_name', $edu_name);
     }
 
     public function edit($id)
