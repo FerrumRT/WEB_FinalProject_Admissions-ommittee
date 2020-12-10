@@ -13,4 +13,9 @@ class EducationDegree extends Model
     public function faculties(){
         return $this->hasMany('App\Faculty', 'education_degree_id', 'id');
     }
+
+    public function students(){
+        return $this->hasMany('App\Student', 'education_degree_id', 'id');
+    }
+
 }
