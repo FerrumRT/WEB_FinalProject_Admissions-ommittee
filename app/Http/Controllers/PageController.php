@@ -14,6 +14,10 @@ class PageController extends Controller
         return view("pages/home")->with('title', "Home - Admission")->with("faculties", $faculties)->with("news", $news);
     }
 
+    public function accessForbidden(){
+        return view('pages.403');
+    }
+
     public function about_us(){
         return view("pages/about")->with('title', "About - Admission");
     }

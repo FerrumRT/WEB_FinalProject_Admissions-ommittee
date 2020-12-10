@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PageController@index');
 
+Route::get('/403', 'PageController@accessForbidden');
+
 Route::get('/about', 'PageController@about_us');
 
 Route::get('/contacts', 'PageController@contacts');

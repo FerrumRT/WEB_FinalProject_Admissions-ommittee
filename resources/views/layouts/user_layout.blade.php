@@ -84,7 +84,8 @@
     <a class="nav-link link text-white" href="#">FOR FOREIGN APPLICANTS</a>
 </nav>
 <div class="container-fluid p-0" style="min-height: 468px">
-@yield('content')
+    @include('inc.message')
+    @yield('content')
 </div>
 <footer class="container-fluid" style="background-color:#4c5d67">
     <div class="container pt-5 pb-3 text-white">

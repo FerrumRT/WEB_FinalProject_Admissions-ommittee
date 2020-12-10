@@ -24,7 +24,7 @@
 
             @else
                 @if(Auth::user()->is_adm_member)
-                    <button class="btn btn-primary float-right" style="background-color: darkred; border-color: darkred">Add News</button>
+                    <a href="{{ url('/news/create') }}" class="btn btn-primary float-right" style="background-color: darkred; border-color: darkred">Add News</a>
                 @endif
             @endguest
         </h2>
