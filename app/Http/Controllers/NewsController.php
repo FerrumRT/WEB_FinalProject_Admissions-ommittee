@@ -42,6 +42,10 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
+      if (Auth::user() == null)
+          return redirect('/login');
+      if (!Auth::user()->is_adm_member)
+          return redirect('403');
         $this->validate($request, [
             'title' => 'required',
             'image_url' => 'required',
@@ -86,9 +90,9 @@ class NewsController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
-            return redirect('403');
         $news = News::find($id);
+        if (!Auth::user()->is_adm_member || Auth::user()->id != AdmissionMember::find($news->admission_member_id)->user_id)
+            return redirect('403');
         return view("pages.news.edit")->with('title', 'Edit News')->with('news', $news);
     }
 
@@ -101,6 +105,10 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
+      if (Auth::user() == null)
+          return redirect('/login');
+      if (!Auth::user()->is_adm_member)
+          return redirect('403');
         $this->validate($request, [
             'title' => 'required',
             'image_url' => 'required',

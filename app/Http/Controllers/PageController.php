@@ -15,7 +15,7 @@ class PageController extends Controller
     }
 
     public function accessForbidden(){
-        return view('pages.403');
+        return view('pages.403')->with('title', '403');
     }
 
     public function about_us(){
