@@ -19,8 +19,11 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->date("birthdate");
-            $table->boolean("is_adm_member");
+            $table->string('phone_number')->nullable();
+            $table->date("birthdate")->nullable();
+            $table->boolean("is_adm_member")->default(0);
+            $table->unsignedBigInteger("admission_member_id")->nullable();
+            $table->unsignedBigInteger("student_id")->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

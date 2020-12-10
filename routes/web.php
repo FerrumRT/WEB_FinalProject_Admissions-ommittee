@@ -23,7 +23,52 @@ Route::get('/contacts', 'PageController@contacts');
 
 Route::get('/bachelor', 'PageController@bachelor');
 
-Route::get('/faculties', 'PageController@faculties');
+Route::get('/faculties/{id}', 'FacultiesController@show');
+
+/** Faculties */
+Route::get('/admin/faculties', 'AdminController@show_faculties')->name('admin-faculties');
+
+Route::post('/admin/addFaculty', 'FacultiesController@store')->name('add-faculty');
+
+Route::post('/admin/{id}/deleteFaculty', 'FacultiesController@destroy')->name('delete-faculty');
+
+Route::get('/admin/{id}/editFaculty', 'FacultiesController@edit')->name('edit-faculty');
+
+Route::post('/admin/{id}/saveFaculty', 'FacultiesController@update')->name('update-faculty');
+
+/** Student */
+Route::get('/admin/students', 'AdminController@show_faculties')->name('admin-students');
+
+Route::post('/admin/addEducationDegree', 'EducationDegreesController@store')->name('add-students');
+
+Route::post('/admin/{id}/deleteEducationDegree', 'EducationDegreesController@destroy')->name('delete-students');
+
+Route::get('/admin/{id}/editEducationDegree', 'EducationDegreesController@edit')->name('edit-students');
+
+Route::post('/admin/{id}/saveEducationDegree', 'EducationDegreesController@update')->name('update-students');
+
+/** Education Degrees */
+Route::get('/admin/education_degrees', 'AdminController@show_faculties')->name('admin-edu-deg');
+
+Route::post('/admin/addEducationDegree', 'EducationDegreesController@store')->name('add-edu-deg');
+
+Route::post('/admin/{id}/deleteEducationDegree', 'EducationDegreesController@destroy')->name('delete-edu-deg');
+
+Route::get('/admin/{id}/editEducationDegree', 'EducationDegreesController@edit')->name('edit-edu-deg');
+
+Route::post('/admin/{id}/saveEducationDegree', 'EducationDegreesController@update')->name('update-edu-deg');
+
+/** Admission members */
+Route::get('/admin/admission_members', 'AdminController@show_admission_member')->name('admin-ad-mem');
+
+Route::post('/admin/addAdmissionMember', 'AdmissionMemberController@store')->name('add-ad-mem');
+
+Route::post('/admin/{id}/deleteAdmissionMember', 'AdmissionMemberController@destroy')->name('delete-ad-mem');
+
+Route::get('/admin/{id}/editAdmissionMember', 'AdmissionMemberController@edit')->name('edit-ad-mem');
+
+Route::post('/admin/{id}/saveAdmissionMember', 'AdmissionMemberController@update')->name('update-ad-mem');
+
 
 Auth::routes();
 

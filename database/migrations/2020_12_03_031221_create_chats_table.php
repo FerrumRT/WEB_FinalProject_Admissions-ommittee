@@ -15,9 +15,9 @@ class CreateChatsTable extends Migration
     {
         Schema::create('chats', function (Blueprint $table) {
             $table->bigIncrements("id");
-            $table->date("created_date");
-            $table->text("latest_message_text");
-            $table->time("latest_message_time");
+            $table->date("created_date")->useCurrent();
+            $table->text("latest_message_text")->nullable();
+            $table->time("latest_message_time")->nullable();
             $table->foreignId("student_id")->constrained("students");
             $table->foreignId("admission_member_id")->constrained("admission_members");
             $table->timestamps();

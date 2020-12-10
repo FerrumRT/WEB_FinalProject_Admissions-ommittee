@@ -20,27 +20,13 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #b20006;">
-    <a class="navbar-brand" href="{{url('/')}}"><i class="fas fa-home"></i> ADMISSIONS</a>
+    <a class="navbar-brand" href="{{url('/')}}"><img src="https://lh3.googleusercontent.com/proxy/OcjAT3g7Dhn1orttyBbv-6RBou-LDGokbt-6__UC4lOdgOwXFVFUASUKdSRu80QKHByvE_KY3Kjqk5vSz9evV2k1M4HEwEiFqeaKcG1RbLejLsshqQ" style="width: 70px; height: auto" alt=""> ADMISSIONS</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#">+7(700)-654-02-75</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-map-marked-alt"></i></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="far fa-question-circle"></i></a>
-            </li>
-        </ul>
-    </div>
-
-    <div>
-        <ul class="navbar-nav ml-auto">
+    <div class="ml-auto">
+        <ul class="navbar-nav ">
             <!-- Authentication Links -->
             @guest
                 <li class="nav-item">
@@ -71,21 +57,20 @@
                 </li>
             @endguest
         </ul>
-        <a class="navbar-brand" href="#">
-            <img src="images/iitu_logo.png" height="50" alt="" loading="lazy">
-        </a>
     </div>
 </nav>
 <nav class="nav nav-pills nav-fill" style="background-color: #1c1c1c;">
-    <a class="nav-link link text-white" href="admin.php">Students</a>
-    <a class="nav-link link text-white" href="admin_ad_mem.php">Admission members</a>
-    <a class="nav-link link text-white" href="admin_deu_deg.php">Education degrees</a>
-    <a class="nav-link link text-white disabled" href="">Faculties</a>
+    <a class="nav-link link text-white" href="{{ route('admin-students') }}">Students</a>
+    <a class="nav-link link text-white" href="{{ route('admin-ad-mem') }}">Admission members</a>
+    <a class="nav-link link text-white" href="{{ route('admin-edu-deg') }}">Education degrees</a>
+    <a class="nav-link link text-white" href="{{ route('admin-faculties') }}">Faculties</a>
 </nav>
 
 @yield('content')
 
-<footer class="container-fluid" style="background-color:#4c5d67">
+<footer class="container-fluid" style="background-color:#4c5d67;
+        position: absolute;
+        bottom: 0;">
     <div class="container pt-5 pb-3 text-white">
         <div class="row justify-content-center pb-4">
             <div class="col-4">

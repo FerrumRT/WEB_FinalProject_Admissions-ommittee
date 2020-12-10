@@ -15,11 +15,11 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('student_picture_url');
+            $table->string('student_picture_url')->nullable();
             $table->foreignId('education_degree_id')->constrained('education_degrees')->onDelete('cascade');
-            $table->string('confirm_documents_url');
-            $table->string('school_name');
-            $table->string('university_name');
+            $table->string('confirm_documents_url')->nullable();
+            $table->string('school_name')->nullable();
+            $table->string('university_name')->nullable();
             $table->foreignId("user_id")->constrained("users");
             $table->timestamps();
         });
