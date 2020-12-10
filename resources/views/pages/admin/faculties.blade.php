@@ -41,6 +41,7 @@
                 <th scope="col">Skills</th>
                 <th scope="col">Outcomes</th>
                 <th scope="col">Leading Position</th>
+                <th scope="col">Edu Deg</th>
                 <th scope="col">Options</th>
             </tr>
             </thead>
@@ -54,6 +55,9 @@
                     <th scope="col">{{$faculty->outcomes}}</th>
                     <th scope="col">{{$faculty->leading_position}}</th>
                     <th scope="col">{{$faculty->getEduDegName()}}</th>
+                    <th scope="col">
+                        <a href="{{ route('edit-ad-mem', ['id' => $ad_mem->id]) }}" type="button" class="btn btn-sm btn-outline-dark">Edit</a>
+                    </th>
                 </tr>
             @endforeach
             </tbody>

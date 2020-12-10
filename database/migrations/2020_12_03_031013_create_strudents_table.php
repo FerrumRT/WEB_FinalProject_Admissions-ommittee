@@ -16,7 +16,7 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('student_picture_url')->nullable();
-            $table->foreignId('education_degree_id')->constrained('education_degrees')->onDelete('cascade');
+            $table->foreignId('education_degree_id')->constrained('education_degrees')->onDelete('cascade')->nullable();
             $table->string('confirm_documents_url')->nullable();
             $table->string('school_name')->nullable();
             $table->string('university_name')->nullable();

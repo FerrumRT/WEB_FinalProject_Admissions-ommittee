@@ -31,22 +31,11 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#">+7(700)-654-02-75</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-map-marked-alt"></i></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="far fa-question-circle"></i></a>
-            </li>
-        </ul>
-    </div>
-
     <ul class="navbar-nav ml-auto">
         <!-- Authentication Links -->
+        @if (Auth::user()->is_adm_member)
+            <a href="{{route('admin-students')}}" class="nav-link">Admin panel</a>
+        @endif
         @guest
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -57,9 +46,16 @@
                 </li>
             @endif
         @else
-            <a class="nav-link " href="#">
-                {{ Auth::user()->name }}
-            </a>
+            @if (Auth::user()->is_adm_member)
+                <a class="nav-link " href="{{route('ad-mem-profile')}}">
+                    {{ Auth::user()->name }}
+                </a>
+            @endif
+            @if (!Auth::user()->is_adm_member)
+                <a class="nav-link " href="{{route('student-profile')}}">
+                    {{ Auth::user()->name }}
+                </a>
+            @endif
             <a class="nav-link" href="{{ route('logout') }}"
                onclick="event.preventDefault();
                    document.getElementById('logout-form').submit();">
@@ -71,9 +67,12 @@
             </form>
             </li>
         @endguest
+
     </ul>
 </nav>
-<nav class="nav nav-pills nav-fill" style="background-color: #1c1c1c;">
+<nav class="nav nav-pills nav-fill" style="background-color: #1c1c1c;background-color:#4c5d67;
+        position: absolute;
+        bottom: 0;">
     <a class="nav-link link text-white" href="#">ONLINE RECEPTION</a>
     <a class="nav-link link text-white" href="#">FOR PUPILS</a>
     <a class="nav-link link text-white" href="{{url('/bachelor')}}">BACHELOR'S PROGRAM</a>
