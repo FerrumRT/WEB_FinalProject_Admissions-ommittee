@@ -20,7 +20,7 @@ class CreateFacultiesTable extends Migration
             $table->text('skills');
             $table->text('outcomes');
             $table->text('leading_position');
-            $table->string("image_url");
+            $table->string("image_url")->nullable();
             $table->foreignId('education_degree_id')->constrained('education_degrees');
             $table->timestamps();
         });

@@ -26,10 +26,6 @@ class PageController extends Controller
         return view("pages/contacts")->with('title', "Contacts - Admission");
     }
 
-    public function faculties(){
-        return view("pages/admin/faculties")->with('title', "Faculties - Admin");
-    }
-
     public function bachelor(){
         $faculties = Faculty::all();
         foreach ($faculties as $faculty){

@@ -30,7 +30,7 @@ class NewsController extends Controller
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_adm_member)
-            return redirect('403');
+            return redirect('/403');
         return view("pages.news.create")->with('title', 'Add News');
     }
 
@@ -42,6 +42,10 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::user() == null)
+            return redirect('/login');
+        if (!Auth::user()->is_adm_member)
+            return redirect('/403');
         $this->validate($request, [
             'title' => 'required',
             'image_url' => 'required',
@@ -87,6 +91,10 @@ class NewsController extends Controller
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_adm_member)
+            return redirect('/403');
+        if (Auth::user() == null)
+            return redirect('/login');
+        if (!Auth::user()->is_adm_member)
             return redirect('403');
         $news = News::find($id);
         return view("pages.news.edit")->with('title', 'Edit News')->with('news', $news);
@@ -101,6 +109,10 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (Auth::user() == null)
+            return redirect('/login');
+        if (!Auth::user()->is_adm_member)
+            return redirect('/403');
         $this->validate($request, [
             'title' => 'required',
             'image_url' => 'required',
@@ -126,6 +138,10 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
+        if (Auth::user() == null)
+            return redirect('/login');
+        if (!Auth::user()->is_adm_member)
+            return redirect('/403');
         $news = News::find($id);
         $news->delete();
         return redirect('/')->with('success', 'News deleted');

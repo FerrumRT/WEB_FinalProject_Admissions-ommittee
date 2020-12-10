@@ -16,7 +16,7 @@ class CreateMessagesTable extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements("id");
             $table->text("message_text");
-            $table->boolean("read_by_receiver");
+            $table->boolean("read_by_receiver")->default(false);
             $table->timestamp("send_date")->useCurrent();
             $table->foreignId("student_id")->constrained("students");
             $table->foreignId("admission_member_id")->constrained("admission_members");
