@@ -56,7 +56,7 @@
                     <th scope="col">{{$faculty->leading_position}}</th>
                     <th scope="col">{{$faculty->getEduDegName()}}</th>
                     <th scope="col">
-                        <a href="{{ route('edit-ad-mem', ['id' => $ad_mem->id]) }}" type="button" class="btn btn-sm btn-outline-dark">Edit</a>
+                        <a href="{{ route('edit-faculty', ['id' => $faculty->id]) }}" type="button" class="btn btn-sm btn-outline-dark">Edit</a>
                     </th>
                 </tr>
             @endforeach

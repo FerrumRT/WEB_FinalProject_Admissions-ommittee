@@ -15,6 +15,13 @@
             <div class="form-group">
                 <input type="password" class="form-control" name="password" placeholder="Password">
             </div>
+            <div class="form-group">
+                <select class="form-control" name="edu_deg">
+                    @foreach($edu_deg as $deg)
+                        <option value = "{{ $deg->id }}">{{ $deg->name }}</option>
+                    @endforeach
+                </select>
+            </div>
             <button type="submit" class="btn btn-outline-success">Add</button>
         </form>
 

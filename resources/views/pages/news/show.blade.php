@@ -9,11 +9,13 @@
             <p>
                 Wrote by: <a href="#">{{ $user->name }}</a>
                 {{ date_format(date_create($one_news->created_date), "M d Y H:i") }}
-                @if($user->id==\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier())
-                    <a href="{{url('/news/'.$one_news->id.'/edit')}}" class="btn btn-primary float-right"
-                            style="background-color: darkred; border-color: darkred">Edit
-                    </a>
-                @endif
+                @guest @else
+                    @if($user->id==\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier())
+                        <a href="{{url('/news/'.$one_news->id.'/edit')}}" class="btn btn-primary float-right"
+                                style="background-color: darkred; border-color: darkred">Edit
+                        </a>
+                    @endif
+                @endguest
             </p>
         </div>
     </div>

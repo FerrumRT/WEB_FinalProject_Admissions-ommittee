@@ -38,22 +38,26 @@
                     </li>
                 @endif
             @else
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                @if (Auth::user()->is_adm_member)
+                    <a href="{{route('admin-students')}}" class="nav-link">Admin panel</a>
+                    <a class="nav-link " href="{{ route('ad-mem-profile', ['id' => 0]) }}">
                         {{ Auth::user()->name }}
                     </a>
+                @endif
+                @if (!Auth::user()->is_adm_member)
+                    <a class="nav-link " href="{{route('student-profile', ['id' => 0])}}">
+                        {{ Auth::user()->name }}
+                    </a>
+                @endif
+                <a class="nav-link" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                   document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
 
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
                 </li>
             @endguest
         </ul>
@@ -66,11 +70,10 @@
     <a class="nav-link link text-white" href="{{ route('admin-faculties') }}">Faculties</a>
 </nav>
 
+@include('inc.message')
 @yield('content')
 
-<footer class="container-fluid" style="background-color:#4c5d67;
-        position: absolute;
-        bottom: 0;">
+<footer class="container-fluid" style="background-color:#4c5d67;">
     <div class="container pt-5 pb-3 text-white">
         <div class="row justify-content-center pb-4">
             <div class="col-4">

@@ -25,7 +25,10 @@ Route::get('/bachelor', 'PageController@bachelor');
 
 Route::get('/faculties/{id}', 'FacultiesController@show');
 
-Route::get('/profile/{id}', 'StudentController@show')->name('student-profile');
+Route::get('/profile/member/{id}', 'StudentController@show')->name('ad-mem-profile');
+
+Route::get('/profile/student/{id}', 'StudentController@show')->name('student-profile');
+
 
 /** Admin panel
 * Faculties */

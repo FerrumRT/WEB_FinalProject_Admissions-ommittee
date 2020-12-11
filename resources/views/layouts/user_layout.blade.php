@@ -33,9 +33,6 @@
 
     <ul class="navbar-nav ml-auto">
         <!-- Authentication Links -->
-        @if (Auth::user()->is_adm_member)
-            <a href="{{route('admin-students')}}" class="nav-link">Admin panel</a>
-        @endif
         @guest
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -47,12 +44,13 @@
             @endif
         @else
             @if (Auth::user()->is_adm_member)
-                <a class="nav-link " href="{{route('ad-mem-profile')}}">
+                <a href="{{route('admin-students')}}" class="nav-link">Admin panel</a>
+                <a class="nav-link " href="{{ route('ad-mem-profile', ['id' => 0]) }}">
                     {{ Auth::user()->name }}
                 </a>
             @endif
             @if (!Auth::user()->is_adm_member)
-                <a class="nav-link " href="{{route('student-profile')}}">
+                <a class="nav-link " href="{{route('student-profile', ['id' => 0])}}">
                     {{ Auth::user()->name }}
                 </a>
             @endif
@@ -70,9 +68,7 @@
 
     </ul>
 </nav>
-<nav class="nav nav-pills nav-fill" style="background-color: #1c1c1c;background-color:#4c5d67;
-        position: absolute;
-        bottom: 0;">
+<nav class="nav nav-pills nav-fill" style="background-color: #1c1c1c;">
     <a class="nav-link link text-white" href="#">ONLINE RECEPTION</a>
     <a class="nav-link link text-white" href="#">FOR PUPILS</a>
     <a class="nav-link link text-white" href="{{url('/bachelor')}}">BACHELOR'S PROGRAM</a>
@@ -86,7 +82,7 @@
     @include('inc.message')
     @yield('content')
 </div>
-<footer class="container-fluid" style="background-color:#4c5d67">
+<footer class="container-fluid" style="background-color:#4c5d67;">
     <div class="container pt-5 pb-3 text-white">
         <div class="row justify-content-center pb-4">
             <div class="col-4">
