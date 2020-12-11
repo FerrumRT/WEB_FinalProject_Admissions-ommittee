@@ -3,14 +3,15 @@
 @section('content')
 <div class = "container py-5">
     <div class = "col align-self-center">
-        <h3>Faculty adding</h3>
+        <h3>Edit {{ $student->getName() }}</h3>
         <form action="{{ route('update-students', ['id' => $student->id]) }}" method="post">
             @csrf
             <div class="form-group">
                 <input type="text" class="form-control" name="name" value="{{ $student->getName() }}">
             </div>
             <div class="form-group">
-                <input type="email" class="form-control" name="email" value="{{ $student->getEmail() }}">
+                <input type="email" disabled class="form-control" name="email" value="{{ $student->getEmail() }}">
+                <input type="email" hidden class="form-control" name="email" value="{{ $student->getEmail() }}">
             </div>
             <div class="form-group">
                 <input type="date" class="form-control" name="birthdate" value="{{ $student->getBirthdate() }}">

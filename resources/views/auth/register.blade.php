@@ -38,6 +38,18 @@
                         </div>
 
                         <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Education Degree</label>
+
+                            <div class="col-md-6">
+                                <select name="edu_deg" class="form-control">
+                                    @foreach($edu_degrees as $edu_deg)
+                                        <option value="{{ $edu_deg->id }}">{{ $edu_deg->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

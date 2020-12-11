@@ -20,20 +20,22 @@ class StudentController extends Controller
             return redirect('/403');
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required',
-            'password' => 'required'
+            'email' => 'required|unique:users',
+            'password' => 'required',
+            'edu_deg' => 'required'
         ]);
 
         User::create([
             'name' => $request['name'],
             'email' => $request['email'],
-            'password' => Hash::make($request['password'])
+            'password' => Hash::make($request['password']),
         ]);
 
         $user_id = User::where('email', $request['email'])->first()->id;
 
         Student::create([
-            'user_id' => $user_id
+            'user_id' => $user_id,
+            'education_degree_id' => $request['edu_deg']
         ]);
 
         return redirect('/admin/students')->with('success', 'Student created');

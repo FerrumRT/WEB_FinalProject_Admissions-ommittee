@@ -33,7 +33,6 @@
 
     <ul class="navbar-nav ml-auto">
         <!-- Authentication Links -->
-
         @guest
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -46,12 +45,12 @@
         @else
             @if (Auth::user()->is_adm_member)
                 <a href="{{route('admin-students')}}" class="nav-link">Admin panel</a>
-                <a class="nav-link " href="{{route('ad-mem-profile')}}">
+                <a class="nav-link " href="{{ route('ad-mem-profile', ['id' => 0]) }}">
                     {{ Auth::user()->name }}
                 </a>
             @endif
             @if (!Auth::user()->is_adm_member)
-                <a class="nav-link " href="{{route('student-profile')}}">
+                <a class="nav-link " href="{{route('student-profile', ['id' => 0])}}">
                     {{ Auth::user()->name }}
                 </a>
             @endif
@@ -79,7 +78,7 @@
     @include('inc.message')
     @yield('content')
 </div>
-<footer class="container-fluid" style="background-color:#4c5d67">
+<footer class="container-fluid" style="background-color:#4c5d67;">
     <div class="container pt-5 pb-3 text-white">
         <div class="row justify-content-center pb-4">
             <div class="col-4">

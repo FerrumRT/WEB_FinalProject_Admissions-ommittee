@@ -77,16 +77,21 @@ class AdmissionMemberController extends Controller
             return redirect('/403');
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required',
-            'password' => 'required'
+            'email' => 'required'
         ]);
+
 
         $admission_member = AdmissionMember::find($id);
         $user = User::find($admission_member->user_id);
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
+        if ($request->input('old_password') != ""
+            && $request->input('new_password') != ""
+            && Hash::check($request->input('old_password'), $user->password))
+            $user->password = Hash::make($request->input('new_password'));
+        else if($request->input('old_password') != "")
+            return redirect('/admin/'.$id.'/editAdmissionMember')->with('error', 'Passwords doesnt match');
         $user->phone_number = $request->input('phone_number');
         $user->birthdate = $request->input('birthdate');
 

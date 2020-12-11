@@ -72,6 +72,7 @@ class RegisterController extends Controller
         ]);
         $student = new Student;
         $student->user_id = $user->id;
+        $student->education_degree_id = $data['edu_deg'];
         $student->save();
         return $user;
     }
