@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AdmissionMember;
+use App\EducationDegree;
 use App\News;
 use App\User;
 use Illuminate\Http\Request;
@@ -74,10 +75,12 @@ class NewsController extends Controller
         $one_news = News::find($id);
         $adm_mem = AdmissionMember::find($one_news->admission_member_id);
         $user = User::find($adm_mem->user_id);
+        $edu_deg = EducationDegree::all();
         return view("pages.news.show")->
         with("one_news", $one_news)->
         with("adm_mem", $adm_mem)->
-        with("user", $user);
+        with("user", $user)->
+        with('edu_deg', $edu_deg);
     }
 
     /**
@@ -95,9 +98,13 @@ class NewsController extends Controller
         if (!Auth::user()->is_adm_member)
             return redirect('403');
         $news = News::find($id);
+        $edu_deg = EducationDegree::all();
         if (!Auth::user()->is_adm_member || Auth::user()->id != AdmissionMember::find($news->admission_member_id)->user_id)
             return redirect('403');
-        return view("pages.news.edit")->with('title', 'Edit News')->with('news', $news);
+        return view("pages.news.edit")
+            ->with('title', 'Edit News')
+            ->with('news', $news)
+            ->with('edu_deg', $edu_deg);
     }
 
     /**

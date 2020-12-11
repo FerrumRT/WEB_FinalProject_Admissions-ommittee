@@ -47,9 +47,6 @@ class FacultiesController extends Controller
 
     public function show(int $id)
     {
-        $faculty = Faculty::find($id);
-        $edu_name = EducationDegree::find($faculty->education_degree_id)->name;
-        return view("pages/faculty/show")->with('title', "Faculty - Admission")->with("faculty", $faculty)->with('edu_name', $edu_name);
     }
 
     public function edit($id)
@@ -59,8 +56,9 @@ class FacultiesController extends Controller
         if (!Auth::user()->is_adm_member)
             return redirect('/403');
         $faculties = Faculty::find($id);
-        $edu_deg = EducationDegree::all();
-        return view("pages/admin/faculty_edit")->with('title', "Faculties - Admission")->with("faculty", $faculties)->with("edu_deg", $edu_deg);
+        return view("pages/admin/faculty_edit")
+            ->with('title', "Faculties - Admission")
+            ->with("faculty", $faculties);
     }
 
 
