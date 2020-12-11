@@ -14,13 +14,14 @@
                         <div class="flex-container mt-4">
                             @foreach($faculties as $faculty)
                                 <span class="wow pulse" style="animation-delay: 0.1s; visibility: visible; animation-name: pulse;">
-                <div class="grad-box">
-                    <a class="" href="faculties/{{$faculty->id}}">
-                        <img class="grad-box-img" src="{{$faculty->image_url}}">
-                        <span>{{$faculty->name}}</span>
-                    </a>
-                </div>
-            </span>
+                                    <div class="grad-box">
+                                        <a class="" href="{{route('faculty-info', ['id'=>$faculty->id])}}">
+                                            <img class="grad-box-img" src="{{$faculty->image_url}}">
+                                            <span>{{$faculty->name}}</span>
+                                        </a>
+                                        
+                                    </div>
+                                </span>
                             @endforeach
                         </div>
                     </div>

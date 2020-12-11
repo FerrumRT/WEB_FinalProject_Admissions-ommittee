@@ -23,7 +23,7 @@ Route::get('/contacts', 'PageController@contacts');
 
 Route::get('/{name}/info', 'EducationDegreesController@show')->name('edu-deg-info');
 
-Route::get('/faculties/{id}', 'FacultiesController@show');
+Route::get('/faculties/{id}', 'FacultiesController@show')->name('faculty-info');
 
 Route::get('/profile/member/{id}', 'StudentController@show')->name('ad-mem-profile');
 

@@ -40,7 +40,7 @@ class EducationDegreesController extends Controller
     {
         $edu_deg = EducationDegree::all();
         $deg = EducationDegree::where('name', $name)->first();
-        $faculties = Faculty::where('education_degree_id', $deg->id)->first();
+        $faculties = Faculty::where('education_degree_id', $deg->id);
         return view("pages/edu_deg/show")->with('title', "Education Degree - Admission")->with("deg", $deg)->with("edu_deg", $edu_deg)->with("faculties", $faculties);
     }
 
