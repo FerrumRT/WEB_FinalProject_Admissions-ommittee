@@ -88,7 +88,8 @@ class AdmissionMemberController extends Controller
             && $request->input('new_password') != ""
             && Hash::check($request->input('old_password'), $user->password))
             $user->password = Hash::make($request->input('new_password'));
-        else if($request->input('old_password') != "")
+        else if($request->input('old_password') != ""
+            && $request->input('new_password') != "")
             return redirect('/admin/'.$id.'/editAdmissionMember')->with('error', 'Passwords doesnt match');
         $user->phone_number = $request->input('phone_number');
         $user->birthdate = $request->input('birthdate');

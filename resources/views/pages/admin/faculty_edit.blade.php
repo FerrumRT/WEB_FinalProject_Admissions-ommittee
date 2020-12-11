@@ -10,16 +10,16 @@
                 <input type="text" class="form-control" name="name" value="{{ $faculty->name }}">
             </div>
             <div class="form-group">
-                <textarea class="form-control" name="description" value="{{ $faculty->description }}"></textarea>
+                <textarea class="form-control" name="description">{{ $faculty->description }}</textarea>
             </div>
             <div class="form-group">
-                <textarea type="text" class="form-control" name="skills" value="{{ $faculty->skills }}"></textarea>
+                <textarea type="text" class="form-control" name="skills">{{ $faculty->skills }}</textarea>
             </div>
             <div class="form-group">
-                <textarea type="text" class="form-control" name="outcomes" value="{{ $faculty->outcomes }}"></textarea>
+                <textarea type="text" class="form-control" name="outcomes">{{ $faculty->outcomes }}</textarea>
             </div>
             <div class="form-group">
-                <textarea type="text" class="form-control" name="leading_position" value="{{ $faculty->leading_position }}"></textarea>
+                <textarea type="text" class="form-control" name="leading_position">{{ $faculty->leading_position }}</textarea>
             </div>
             <div class="form-group">
                 <select class="form-control" name="edu_deg">
