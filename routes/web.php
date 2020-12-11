@@ -21,7 +21,7 @@ Route::get('/about', 'PageController@about_us');
 
 Route::get('/contacts', 'PageController@contacts');
 
-Route::get('/info/{name}', 'EducationDegreesController@show')->name('edu-deg-info');
+Route::get('/{name}/info', 'EducationDegreesController@show')->name('edu-deg-info');
 
 Route::get('/faculties/{id}', 'FacultiesController@show');
 
