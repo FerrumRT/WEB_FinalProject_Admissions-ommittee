@@ -71,7 +71,7 @@
 <nav class="nav nav-pills nav-fill" style="background-color: #1c1c1c;">
     <a class="nav-link link text-white" href="#">ONLINE RECEPTION</a>
     @foreach($edu_deg as $deg)
-        <a class="nav-link link text-white" href="{{ route('edu-deg-info', ['name', $deg->name]) }}"><span style="text-transform:uppercase;">{{ $deg->name }} PROGRAM</span></a>
+        <a class="nav-link link text-white" href="{{ route('edu-deg-info', ['name' => $deg->name]) }}"><span style="text-transform:uppercase;">{{ $deg->name }} PROGRAM</span></a>
     @endforeach
 </nav>
 <div class="container-fluid p-0" style="min-height: 468px">

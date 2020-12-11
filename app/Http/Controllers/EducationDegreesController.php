@@ -38,8 +38,9 @@ class EducationDegreesController extends Controller
 
     public function show($name)
     {
-        $edu_deg = EducationDegree::where('name', $name)->first();
-        return view("pages/edu_deg/show")->with('title', "Education Degree - Admission")->with("edu_deg", $edu_deg);
+        $edu_deg = EducationDegree::all();
+        $deg = EducationDegree::where('name', $name)->first();
+        return view("pages/edu_deg/show")->with('title', "Education Degree - Admission")->with("deg", $deg)->with("edu_deg", $edu_deg);
     }
 
 
