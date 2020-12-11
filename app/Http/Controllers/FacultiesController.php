@@ -34,8 +34,7 @@ class FacultiesController extends Controller
             'leading_position' => 'required',
             'edu_deg' => 'required'
         ]);
-
-        return Faculty::create([
+        Faculty::create([
             'name' => $request['name'],
             'description' => $request['description'],
             'skills' => $request['skills'],
@@ -43,6 +42,7 @@ class FacultiesController extends Controller
             'leading_position' => $request['leading_position'],
             'education_degree_id' => $request['edu_deg']
         ]);
+        return redirect("/admin/faculties")->with('success', 'Faculty added');
     }
 
     public function show(int $id)
@@ -59,7 +59,8 @@ class FacultiesController extends Controller
         if (!Auth::user()->is_adm_member)
             return redirect('/403');
         $faculties = Faculty::find($id);
-        return view("pages/admin/faculties_edit")->with('title', "Faculties - Admission")->with("faculties", $faculties);
+        $edu_deg = EducationDegree::all();
+        return view("pages/admin/faculty_edit")->with('title', "Faculties - Admission")->with("faculty", $faculties)->with("edu_deg", $edu_deg);
     }
 
 
@@ -89,7 +90,7 @@ class FacultiesController extends Controller
 
         $faculty->save();
 
-        return redirect('/admin/faculties')->with('success', 'Admission member updated');
+        return redirect('/admin/faculties')->with('success', 'Faculty updated');
     }
 
     public function destroy($id)
