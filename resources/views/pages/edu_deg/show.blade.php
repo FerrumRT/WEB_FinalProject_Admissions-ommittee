@@ -8,10 +8,11 @@
 
                 @if(!is_null($faculties))
                     <div class="row justify-content-center">
-                        <h2>Educational Programs</h2>
+                        <h2>Educational Programs </h2>
                     </div>
                     <div class="row justify-content-center">
                         <div class="flex-container mt-4">
+
                             @foreach($faculties as $faculty)
                                 <span class="wow pulse" style="animation-delay: 0.1s; visibility: visible; animation-name: pulse;">
                                     <div class="grad-box">
@@ -19,7 +20,6 @@
                                             <img class="grad-box-img" src="{{$faculty->image_url}}">
                                             <span>{{$faculty->name}}</span>
                                         </a>
-                                        
                                     </div>
                                 </span>
                             @endforeach
