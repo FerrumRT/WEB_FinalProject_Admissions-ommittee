@@ -21,11 +21,13 @@ Route::get('/about', 'PageController@about_us');
 
 Route::get('/contacts', 'PageController@contacts');
 
-Route::get('/bachelor', 'PageController@bachelor');
+Route::get('/info/{name}', 'EducationDegreesController@show')->name('edu-deg-info');
 
 Route::get('/faculties/{id}', 'FacultiesController@show');
 
 Route::get('/profile/{id}', 'StudentController@show')->name('student-profile');
+
+Route::get('/profile/{id}', 'AdmissionMemberController@show')->name('ad-mem-profile');
 
 /** Admin panel
 * Faculties */

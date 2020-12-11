@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AdmissionMember;
+use App\EducationDegree;
 use App\Http\Controllers\Auth\RegisterController;
 use App\User;
 use Illuminate\Http\Request;
@@ -53,7 +54,8 @@ class AdmissionMemberController extends Controller
     public function show(int $id)
     {
         $admission_member = AdmissionMember::find($id);
-        return view("pages/adm_member/profile")->with('title', "Profile - Admission")->with("admission_member", $admission_member);
+        $edu_deg = EducationDegree::all();
+        return view("pages/adm_member/profile")->with('title', "Profile - Admission")->with("admission_member", $admission_member)->with("edu_deg", $edu_deg);
     }
 
     public function edit($id)

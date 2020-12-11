@@ -33,9 +33,7 @@
 
     <ul class="navbar-nav ml-auto">
         <!-- Authentication Links -->
-        @if (Auth::user()->is_adm_member)
-            <a href="{{route('admin-students')}}" class="nav-link">Admin panel</a>
-        @endif
+
         @guest
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -47,6 +45,7 @@
             @endif
         @else
             @if (Auth::user()->is_adm_member)
+                <a href="{{route('admin-students')}}" class="nav-link">Admin panel</a>
                 <a class="nav-link " href="{{route('ad-mem-profile')}}">
                     {{ Auth::user()->name }}
                 </a>
@@ -70,17 +69,11 @@
 
     </ul>
 </nav>
-<nav class="nav nav-pills nav-fill" style="background-color: #1c1c1c;background-color:#4c5d67;
-        position: absolute;
-        bottom: 0;">
+<nav class="nav nav-pills nav-fill" style="background-color: #1c1c1c;">
     <a class="nav-link link text-white" href="#">ONLINE RECEPTION</a>
-    <a class="nav-link link text-white" href="#">FOR PUPILS</a>
-    <a class="nav-link link text-white" href="{{url('/bachelor')}}">BACHELOR'S PROGRAM</a>
-    <a class="nav-link link text-white" href="#">MASTER'S PROGRAM</a>
-    <a class="nav-link link text-white" href="#">INTERNSHIP</a>
-    <a class="nav-link link text-white" href="#">PHD PROGRAM</a>
-    <a class="nav-link link text-white" href="#">POSTDOC</a>
-    <a class="nav-link link text-white" href="#">FOR FOREIGN APPLICANTS</a>
+    @foreach($edu_deg as $deg)
+        <a class="nav-link link text-white" href="{{ route('edu-deg-info', ['name', $deg->name]) }}"><span style="text-transform:uppercase;">{{ $deg->name }} PROGRAM</span></a>
+    @endforeach
 </nav>
 <div class="container-fluid p-0" style="min-height: 468px">
     @include('inc.message')
