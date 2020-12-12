@@ -45,12 +45,12 @@
         @else
             @if (Auth::user()->is_adm_member)
                 <a href="{{route('admin-students')}}" class="nav-link">Admin panel</a>
-                <a class="nav-link " href="{{ route('ad-mem-profile', ['id' => 0]) }}">
+                <a class="nav-link " href="{{ route('ad-mem-profile', ['id' => Auth::user()->id]) }}">
                     {{ Auth::user()->name }}
                 </a>
             @endif
             @if (!Auth::user()->is_adm_member)
-                <a class="nav-link " href="{{route('student-profile', ['id' => 0])}}">
+                <a class="nav-link " href="{{route('student-profile', ['id' => Auth::user()->id])}}">
                     {{ Auth::user()->name }}
                 </a>
             @endif

@@ -7,6 +7,7 @@ use App\EducationDegree;
 use App\Faculty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class FacultiesController extends Controller
 {
@@ -56,9 +57,11 @@ class FacultiesController extends Controller
         if (!Auth::user()->is_adm_member)
             return redirect('/403');
         $faculties = Faculty::find($id);
+        $edu_deg = EducationDegree::all();
         return view("pages/admin/faculty_edit")
             ->with('title', "Faculties - Admission")
-            ->with("faculty", $faculties);
+            ->with("faculty", $faculties)
+            ->with("edu_deg", $edu_deg);
     }
 
 
@@ -74,10 +77,15 @@ class FacultiesController extends Controller
             'skills' => 'required',
             'outcomes' => 'required',
             'leading_position' => 'required',
-            'edu_deg' => 'required'
+            'edu_deg' => 'required',
+            'image' => 'required'
         ]);
 
         $faculty = Faculty::find($id);
+
+        $img = \Image::make($request->file('image'));
+        $img_path = storage_path('app/public/img/faculty_img/'.'fac_'.$faculty->id.'_img'.'.jpg');
+        $img->save($img_path);
 
         $faculty->name = $request->input('name');
         $faculty->description = $request->input('description');
@@ -85,6 +93,7 @@ class FacultiesController extends Controller
         $faculty->outcomes = $request->input('outcomes');
         $faculty->leading_position = $request->input('leading_position');
         $faculty->education_degree_id = $request->input('edu_deg');
+        $faculty->image_url = $img_path;
 
         $faculty->save();
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     protected $fillable = [
-        'user_id', 'school_name', 'university_name', 'education_degree_id'
+        'user_id', 'school_name', 'university_name', 'education_degree_id', 'student_picture_url'
     ];
 
     public function certificates(){

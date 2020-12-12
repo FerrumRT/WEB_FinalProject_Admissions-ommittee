@@ -43,8 +43,14 @@ class StudentController extends Controller
 
     public function show(int $id)
     {
-        $student = Student::find($id);
-        return view("pages/student/profile")->with('title', "Profile - Admission")->with("student", $student);
+        if (Auth::user() == null)
+            return redirect('/login');
+        if (Auth::user()->is_adm_member)
+            return redirect('/403');
+        $user = User::find($id);
+        $student = Student::where('user_id',$user->id)->first();
+        $edu_deg = EducationDegree::all();
+        return view("pages/student/profile")->with('title', "Profile - Admission")->with("student", $student)->with("edu_deg", $edu_deg);
     }
 
     public function edit($id)
@@ -67,11 +73,16 @@ class StudentController extends Controller
             return redirect('/403');
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required'
+            'email' => 'required',
+            'image' => 'required'
         ]);
 
         $student = Student::find($id);
         $user = User::find($student->user_id);
+
+        $img = \Image::make($request->file('image')->getRealPath());
+        $img_path = storage_path('app/public/img/student_img/'.'std_'.$student->id.'_img'.'.jpg');
+        $img->save($img_path);
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -84,6 +95,7 @@ class StudentController extends Controller
         $student->school_name = $request->input('school_name');
         $student->university_name = $request->input('university_name');
         $student->education_degree_id = $request->input('edu_deg');
+        $student->student_picture_url = $img_path;
 
         $student->save();
 

@@ -19,7 +19,7 @@
                                             <img class="grad-box-img" src="{{$faculty->image_url}}">
                                             <span>{{$faculty->name}}</span>
                                         </a>
-                                        
+
                                     </div>
                                 </span>
                             @endforeach

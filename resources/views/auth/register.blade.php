@@ -42,8 +42,8 @@
 
                             <div class="col-md-6">
                                 <select name="edu_deg" class="form-control">
-                                    @foreach($edu_degrees as $edu_deg)
-                                        <option value="{{ $edu_deg->id }}">{{ $edu_deg->name }}</option>
+                                    @foreach($edu_deg as $deg)
+                                        <option value="{{ $deg->id }}">{{ $deg->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

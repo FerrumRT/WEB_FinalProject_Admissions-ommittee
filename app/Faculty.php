@@ -8,7 +8,7 @@ class Faculty extends Model
 {
 
     protected $fillable = [
-        'name', 'description', 'skills','outcomes','leading_position','education_degree_id'
+        'name', 'description', 'skills','outcomes','leading_position','education_degree_id', 'image_url'
     ];
 
     public function education_degree(){

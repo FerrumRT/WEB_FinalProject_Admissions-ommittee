@@ -53,9 +53,18 @@ class AdmissionMemberController extends Controller
 
     public function show(int $id)
     {
-        $admission_member = AdmissionMember::find($id);
+        if (Auth::user() == null)
+            return redirect('/login');
+        if (!Auth::user()->is_adm_member)
+            return redirect('/403');
+        $user = User::find($id);
+        $admission_member = AdmissionMember::where('user_id',$user->id)->first();
+        $ad_mem_img = \Storage::disk('public')->url($admission_member->image_url);
         $edu_deg = EducationDegree::all();
-        return view("pages/adm_member/profile")->with('title', "Profile - Admission")->with("admission_member", $admission_member)->with("edu_deg", $edu_deg);
+        return view("pages/ad_mem/profile")->with('title', "Profile - Admission")
+            ->with("admission_member", $admission_member)
+            ->with("edu_deg", $edu_deg)
+            ->with("ad_mem_img", $ad_mem_img);
     }
 
     public function edit($id)
@@ -96,7 +105,15 @@ class AdmissionMemberController extends Controller
         $user->phone_number = $request->input('phone_number');
         $user->birthdate = $request->input('birthdate');
 
+        $img = \Image::make($request->file('image')->getRealPath());
+        $img_path = 'img/ad_mem_img/'.'ad_mem_'.$admission_member->id.'_img'.'.jpg';
+        $img->save(storage_path('app/public/'.$img_path));
+
+        $admission_member->image_url = $img_path;
+
         $user->save();
+
+        $admission_member->save();
 
         return redirect('/admin/admission_members')->with('success', 'Admission member updated');
     }
