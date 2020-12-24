@@ -36,17 +36,18 @@
     <div class="pt-3">
         <h2>Ask question and we answer</h2>
     </div>
-    <form>
+    {!! Form::open(['action' => 'MailController@basic_email', 'method'=> 'GET']) !!}
         <div class="form-group">
-            <label>Your e-mail</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            {{ Form::label('email'), 'Your e-mail' }}
+            {{ Form::text('email', '', ['class'=> 'form-control', 'type' => 'email']) }}
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
-            <label>Question: </label>
-            <textarea name="name" rows="8" cols="80" class="form-control"></textarea>
+            <label></label>
+            {{ Form::label('message'), 'Question: ' }}
+            {{ Form::textarea('message', '', ['class'=> 'form-control', 'rows' => '8', 'cols' => '80']) }}
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+        {{ Form::submit('Submit', ['class'=> 'btn btn-primary']) }}
+    {!! Form::close() !!}
 </div>
 @endsection

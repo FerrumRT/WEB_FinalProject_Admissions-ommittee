@@ -82,6 +82,7 @@ class NewsController extends Controller
         $user = User::find($adm_mem->user_id);
         $edu_deg = EducationDegree::all();
         return view("pages.news.show")->
+        with('title', $one_news->name)->
         with("one_news", $one_news)->
         with("adm_mem", $adm_mem)->
         with("user", $user)->
