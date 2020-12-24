@@ -9,6 +9,9 @@
             <div class="form-group">
                 <input type="text" class="form-control" name="name" placeholder="Faculty name">
             </div>
+            <div class="form-group">
+                <textarea class="form-control" name="description" placeholder="Description"></textarea>
+            </div>
             <button type="submit" class="btn btn-outline-success">Add</button>
         </form>
 
@@ -18,6 +21,7 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Education Degree name</th>
+                <th scope="col">Education Degree description</th>
                 <th scope="col">Options</th>
             </tr>
             </thead>
@@ -26,6 +30,8 @@
                 <tr>
                     <th scope="col">{{$ed->id}}</th>
                     <th scope="col">{{$ed->name}}</th>
+                    @php $pos=strpos($ed->description, ' ', 150) @endphp
+                    <th scope="col">{{substr($ed->description, 0, $pos)}}</th>
                     <th scope="col">
                         <a href="{{ route('edit-edu-deg', ['id' => $ed->id]) }}" type="button" class="btn btn-sm btn-outline-dark">Edit</a>
                     </th>

@@ -20,6 +20,7 @@
                                     </div>
                                 </div>
                             @endif
+                            @if(Auth::user()->id==$student->id)
                             <div class="d-flex flex-column bd-highlight mt-3">
                                 <form action="{{ route('student-photo-save', ['id' => $student->user_id]) }}" method="post" enctype="multipart/form-data">
                                     @csrf
@@ -32,6 +33,7 @@
                                     </div>
                                 </form>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -104,6 +106,7 @@
                         </div>
                     </div>
                 </div>
+                @if(Auth::user()->id==$student->id)
                 <div class="card mt-3">
                     <div class="card-body">
                         <h2>Edit profile</h2>
@@ -186,6 +189,7 @@
                         </form>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>

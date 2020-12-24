@@ -27,11 +27,13 @@ class EducationDegreesController extends Controller
         if (!Auth::user()->is_admin)
             return redirect('/403');
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required',
+            'description' => 'required'
         ]);
 
         EducationDegree::create([
-            'name' => $request['name']
+            'name' => $request['name'],
+            'description' => $request['description']
         ]);
         return redirect('/admin/education_degrees')
             ->with('success', 'Education created');
@@ -65,12 +67,14 @@ class EducationDegreesController extends Controller
         if (!Auth::user()->is_admin)
             return redirect('/403');
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required',
+            'description' => 'required'
         ]);
 
         $edu_deg = EducationDegree::find($id);
 
         $edu_deg->name = $request->input('name');
+        $edu_deg->description = $request->input('description');
 
         $edu_deg->save();
 

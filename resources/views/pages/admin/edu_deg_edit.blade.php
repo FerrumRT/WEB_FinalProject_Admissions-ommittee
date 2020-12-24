@@ -9,6 +9,9 @@
             <div class="form-group">
                 <input type="text" class="form-control" name="name" value="{{ $edu_deg->name }}">
             </div>
+            <div class="form-group">
+                <textarea class="form-control" name="description">{{ $edu_deg->description }}</textarea>
+            </div>
             <button type="submit" class="btn btn-outline-success">Save</button>
         </form>
         <form action="{{ route('delete-edu-deg', ['id' => $edu_deg->id]) }}" method="post">

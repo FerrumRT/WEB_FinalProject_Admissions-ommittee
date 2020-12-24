@@ -4,9 +4,11 @@
     <div class="container my-3">
         <div class="card">
             <div class="card-body">
-                <h3 class="card-title"><strong>{{ $deg->name }}</strong></h3>
+                <h1 class="card-title text-center"><strong>{{ $deg->name }}</strong> Program.</h1>
 
-                @if(!is_null($faculties))
+                {!! $deg->description !!}
+
+                @if(sizeof($faculties)!=0)
                     <div class="row justify-content-center">
                         <h2>Educational Programs </h2>
                     </div>
@@ -25,6 +27,10 @@
                                 </span>
                             @endforeach
                         </div>
+                    </div>
+                @else
+                    <div class="row justify-content-center">
+                        <h2>No Educational Program</h2>
                     </div>
                 @endif
                 </div>
