@@ -10831,6 +10831,15 @@ a.text-danger:focus {
   color: #ae1c17 !important;
 }
 
+.text-iitucolor {
+    color: #b20006 !important;
+}
+
+a.text-iitucolor:hover,
+a.text-iitucolor:focus {
+    color: #720005 !important;
+}
+
 .text-light {
   color: #f8f9fa !important;
 }

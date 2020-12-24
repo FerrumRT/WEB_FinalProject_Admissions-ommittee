@@ -15,16 +15,16 @@ class CertificateController extends Controller
     private function isAdission(){
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
     }
 
     private function isStudent(int $id){
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
-        if (Auth::user()->id != $id && !Auth::user()->is_adm_member)
+        if (Auth::user()->id != $id && !Auth::user()->is_admin)
             return redirect('/403');
     }
 

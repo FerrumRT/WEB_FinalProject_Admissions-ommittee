@@ -21,16 +21,7 @@
                                 </div>
                             @endif
                             <div class="d-flex flex-column mt-3">
-                                <form action="{{ route('student-photo-save', ['id' => $student->user_id]) }}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="custom-file p-2 bd-highlight">
-                                        <input type="file" class="custom-file-input" name="image" id="customFile">
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
-                                    <div class="mt-3 bd-highlight">
-                                        <button type="submit" class="btn btn-iitucolor btn-block">Update photo</button>
-                                    </div>
-                                </form>
+                                <h4>{{$student->getName()}}</h4>
                             </div>
                             <hr>
                             <div class="mb-2 bd-highlight">

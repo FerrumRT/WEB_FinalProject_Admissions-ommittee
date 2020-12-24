@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Mockery\Matcher\Subset;
 
 class StudentController extends Controller
 {
@@ -86,12 +87,19 @@ class StudentController extends Controller
         ]);
 
         $user = User::find($id);
+        $student = Student::where('user_id', $id)->first();
 
         $user->name = $request->input('name');
         $user->phone_number = $request->input('phone_number');
         $user->birthdate = $request->input('birthdate');
+        if (!empty($request->input('school_name')))
+            $student->school_name = $request->input('school_name');
+        if (!empty($request->input('university_name')))
+            $student->university_name = $request->input('university_name');
+        $student->education_degree_id = $request->input('edu_deg');
 
         $user->save();
+        $student->save();
 
         return redirect('/profile/student/'.$id)->with('success', 'Profile updated');
     }
