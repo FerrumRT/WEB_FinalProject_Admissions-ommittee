@@ -3,7 +3,7 @@
 @section('content')
 <div class = "container py-5">
     <div class = "col align-self-center">
-        <h3>Faculty adding</h3>
+        <h3>Faculty editing</h3>
         <form action="{{ route('update-faculty', ['id' => $faculty->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">

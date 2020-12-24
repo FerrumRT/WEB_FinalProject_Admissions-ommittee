@@ -21,7 +21,7 @@ class MailController extends Controller
 
     public function basic_email(Request $request) {
         $this->validate($request, [
-            'email' => 'required',
+            'email' => 'required | email',
             'message' => 'required',
         ]);
 
@@ -39,7 +39,7 @@ class MailController extends Controller
     public function html_email(Request $request) {
 
         $this->validate($request, [
-            'email' => 'required',
+            'email' => 'required | email',
             'message' => 'required',
         ]);
 
@@ -56,7 +56,7 @@ class MailController extends Controller
     }
     public function attachment_email(Request $request) {
         $this->validate($request, [
-            'email' => 'required',
+            'email' => 'required | email',
             'message' => 'required',
         ]);
 

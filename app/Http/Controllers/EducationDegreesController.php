@@ -24,7 +24,7 @@ class EducationDegreesController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
         $this->validate($request, [
             'name' => 'required'
@@ -52,7 +52,7 @@ class EducationDegreesController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
         $edu_deg = EducationDegree::find($id);
         return view("pages/admin/edu_deg_edit")->with('title', "Education Degree - Admission")->with("edu_deg", $edu_deg);
@@ -62,7 +62,7 @@ class EducationDegreesController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
         $this->validate($request, [
             'name' => 'required'
@@ -81,7 +81,7 @@ class EducationDegreesController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
         $edu_deg = EducationDegree::find($id);
         $edu_deg->delete();

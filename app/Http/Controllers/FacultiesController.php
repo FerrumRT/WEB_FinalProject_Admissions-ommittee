@@ -25,7 +25,7 @@ class FacultiesController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
         $this->validate($request, [
             'name' => 'required',
@@ -59,7 +59,7 @@ class FacultiesController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
         $faculties = Faculty::find($id);
         $edu_deg = EducationDegree::all();
@@ -74,7 +74,7 @@ class FacultiesController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
         $this->validate($request, [
             'name' => 'required',
@@ -91,10 +91,13 @@ class FacultiesController extends Controller
         $faculty->description = $request->input('description');
         if(!empty($request['skills']))
             $faculty->skills = $request->input('skills');
+        else $faculty->skills = "";
         if(!empty($request['outcomes']))
             $faculty->outcomes = $request->input('outcomes');
+        else $faculty->outcomes = "";
         if(!empty($request['leading_position']))
             $faculty->leading_position = $request->input('leading_position');
+        else $faculty->leading_position  = "";
         $faculty->education_degree_id = $request->input('edu_deg');
 
         $faculty->save();
@@ -106,7 +109,7 @@ class FacultiesController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
         $faculty = Faculty::find($id);
         $faculty->delete();

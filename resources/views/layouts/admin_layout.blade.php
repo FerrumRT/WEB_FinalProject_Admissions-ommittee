@@ -41,7 +41,7 @@
                     </li>
                 @endif
             @else
-                @if (Auth::user()->is_adm_member)
+                @if (Auth::user()->is_admin)
                     <a href="{{route('admin-students')}}" class="nav-link">Admin panel</a>
                     <a class="nav-link " href="{{ route('ad-mem-profile', ['id' => Auth::user()->id]) }}">
                         {{ Auth::user()->name }}
