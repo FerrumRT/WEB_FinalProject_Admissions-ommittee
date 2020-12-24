@@ -25,7 +25,7 @@
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-iitucolor">
-    <a class="navbar-brand" href="{{url('/')}}"><i class="fas fa-home"></i> ADMISSIONS</a>
+    <a class="navbar-brand" href="{{url('/')}}"><img src="{{ asset('img/iitu_logo.png') }}" style="width: 70px"> ADMISSIONS</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

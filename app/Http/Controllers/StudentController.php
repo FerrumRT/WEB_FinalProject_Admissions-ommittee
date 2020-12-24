@@ -102,12 +102,32 @@ class StudentController extends Controller
 
         if (!empty($request->file('image'))) {
             $img_path = $request->file('image')->store('img/student_img', 'public');
-            $student->student_picture_url = '/storage/' . $img_path;
+            $student->student_picture_url = '/storage/'.$img_path;
         }
 
         $student->save();
 
         return redirect('/profile/student/'.$id)->with('success', 'Profile photo updated');
+    }
+
+    public function upload_document(Request $request, $id)
+    {
+        $this->isStudent($id);
+
+        $this->validate($request, [
+            'file' => 'required|mimetypes:application/pdf'
+        ]);
+
+        $student = Student::where('user_id', $id)->first();
+
+        if (!empty($request->file('file'))) {
+            $doc_path = $request->file('file')->store('confirm_doc', 'public');
+            $student->confirm_documents_url = '/storage/'.$doc_path;
+        }
+
+        $student->save();
+
+        return redirect('/profile/student/'.$id)->with('success', 'Confirmation document uploaded');
     }
 
     public function update_password(Request $request, $id)
@@ -150,7 +170,6 @@ class StudentController extends Controller
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
         $user->phone_number = $request->input('phone_number');
         $user->birthdate = $request->input('birthdate');
 
@@ -172,7 +191,10 @@ class StudentController extends Controller
     {
         $this->isAdission();
         $student = Student::find($id);
+        $user = User::find($student->user_id);
         $student->delete();
+        $user->delete();
+
         return redirect('/admin/students')->with('success', '$student deleted');
     }
 }

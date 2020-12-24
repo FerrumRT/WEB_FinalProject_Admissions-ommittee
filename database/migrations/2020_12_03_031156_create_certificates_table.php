@@ -15,6 +15,7 @@ class CreateCertificatesTable extends Migration
     {
         Schema::create('certificates', function (Blueprint $table) {
             $table->bigIncrements("id");
+            $table->string("name");
             $table->string("certificate_url");
             $table->foreignId("student_id")->constrained("students");
             $table->timestamps();
