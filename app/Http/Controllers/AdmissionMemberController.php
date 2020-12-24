@@ -116,8 +116,7 @@ class AdmissionMemberController extends Controller
             'image' => 'required|image'
         ]);
 
-        $user = User::find($id);
-        $admission_member = AdmissionMember::find($user->id);
+        $admission_member = AdmissionMember::where('user_id', $id)->first();
 
         if (!empty($request->file('image'))) {
             $img_path = $request->file('image')->store('img/ad_mem_img', 'public');
@@ -193,9 +192,9 @@ class AdmissionMemberController extends Controller
     {
         $this->isAdmission();
         $admission_member = AdmissionMember::find($id);
-        $user = User::where('admission_member_id', $id);
-        $user->delete();
+        $user = User::find($admission_member->user_id);
         $admission_member->delete();
+        $user->delete();
         return redirect('/admin/admission_members')->with('success', 'Admission member deleted');
     }
 }

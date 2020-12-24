@@ -8,26 +8,14 @@
     <hr>
     <table class="table table-striped table-bordered">
         <tbody>
-        <tr>
-            <td>Callcenter</td>
-            <td>+7(727) 320 00 00</td>
-        </tr>
-        <tr>
-            <td>UNICEF</td>
-            <td>+7 727) 244 51 04</td>
-        </tr>
-        <tr>
-            <td>Admissions</td>
-            <td>+7(727) 330 85 60</td>
-        </tr>
-        <tr>
-            <td>Innovation center:</td>
-            <td>+7(727) 244 51 03</td>
-        </tr>
-        <tr>
-            <td>Dean's office</td>
-            <td>+7(727) 320 00 00</td>
-        </tr>
+        @foreach($adm_mem as $mem)
+            @if(!empty($mem->getPhoneNumber()))
+                <tr>
+                    <td>{{ $mem->getName() }}</td>
+                    <td>{{ $mem->getPhoneNumber() }}</td>
+                </tr>
+            @endif
+        @endforeach
         </tbody>
     </table>
 </div>
@@ -47,7 +35,7 @@
             {{ Form::label('message'), 'Question: ' }}
             {{ Form::textarea('message', '', ['class'=> 'form-control', 'rows' => '8', 'cols' => '80']) }}
         </div>
-        {{ Form::submit('Submit', ['class'=> 'btn btn-primary']) }}
+        {{ Form::submit('Send', ['class'=> 'btn btn-iitucolor']) }}
     {!! Form::close() !!}
 </div>
 @endsection

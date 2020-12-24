@@ -5,7 +5,7 @@
         <div class="row-cols-1">
             <h1 ><b>{{ $one_news->title }}</b></h1>
             <p>
-                Posted by: <b>{{ $user->name }}</b>
+                Posted by: <a class="btn-link" style="color: black" href="{{ route('ad-mem-profile', ['id' => $user->id]) }}"><b>{{ $user->name }}</b></a>
                 {{ date_format(date_create($one_news->created_date), "M d Y") }}
                 @guest @else
                     @if($user->id==\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier())

@@ -89,22 +89,29 @@ class NewsController extends Controller
         with('edu_deg', $edu_deg);
     }
 
+    /**
+     * @param Request $request
+     * @param int $page = 1
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
     public function search(Request $request)
     {
         $title = $request->input('title');
         if(!empty($title))
-            $news = DB::table('news')->where('title','LIKE', "%".$title."%")->get();
+            $news = DB::table('news')->where('title','LIKE', "%".$title."%")->paginate(10);
         else
-            $news = News::all();
+            $news = News::paginate(10);
 
         $edu_deg = EducationDegree::all();
 
-
+        $page_count = News::all()->count() / 10;
 
         return view("pages.news.result")->
         with("news", $news)->
         with('edu_deg', $edu_deg)->
-        with('title', $title);
+        with('title', $title)->
+        with('pages_count', $page_count);
     }
 
     /**

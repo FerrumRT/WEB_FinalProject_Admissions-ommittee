@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Mockery\Matcher\Subset;
 
 class StudentController extends Controller
 {
@@ -86,12 +87,19 @@ class StudentController extends Controller
         ]);
 
         $user = User::find($id);
+        $student = Student::where('user_id', $id)->first();
 
         $user->name = $request->input('name');
         $user->phone_number = $request->input('phone_number');
         $user->birthdate = $request->input('birthdate');
+        if (!empty($request->input('school_name')))
+            $student->school_name = $request->input('school_name');
+        if (!empty($request->input('university_name')))
+            $student->university_name = $request->input('university_name');
+        $student->education_degree_id = $request->input('edu_deg');
 
         $user->save();
+        $student->save();
 
         return redirect('/profile/student/'.$id)->with('success', 'Profile updated');
     }
@@ -108,12 +116,32 @@ class StudentController extends Controller
 
         if (!empty($request->file('image'))) {
             $img_path = $request->file('image')->store('img/student_img', 'public');
-            $student->student_picture_url = '/storage/' . $img_path;
+            $student->student_picture_url = '/storage/'.$img_path;
         }
 
         $student->save();
 
         return redirect('/profile/student/'.$id)->with('success', 'Profile photo updated');
+    }
+
+    public function upload_document(Request $request, $id)
+    {
+        $this->isStudent($id);
+
+        $this->validate($request, [
+            'file' => 'required|mimetypes:application/pdf'
+        ]);
+
+        $student = Student::where('user_id', $id)->first();
+
+        if (!empty($request->file('file'))) {
+            $doc_path = $request->file('file')->store('confirm_doc', 'public');
+            $student->confirm_documents_url = '/storage/'.$doc_path;
+        }
+
+        $student->save();
+
+        return redirect('/profile/student/'.$id)->with('success', 'Confirmation document uploaded');
     }
 
     public function update_password(Request $request, $id)
@@ -157,7 +185,6 @@ class StudentController extends Controller
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
         $user->phone_number = $request->input('phone_number');
         $user->birthdate = $request->input('birthdate');
 
@@ -179,9 +206,10 @@ class StudentController extends Controller
     {
         $this->isAdission();
         $student = Student::find($id);
-        $user = User::where('student_id', $id);
-        $user->delete();
+        $user = User::find($student->user_id);
         $student->delete();
+        $user->delete();
+
         return redirect('/admin/students')->with('success', '$student deleted');
     }
 }

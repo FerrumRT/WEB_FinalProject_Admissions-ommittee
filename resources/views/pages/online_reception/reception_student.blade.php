@@ -20,20 +20,9 @@
                                     </div>
                                 </div>
                             @endif
-                            @if(Auth::user()->student_id==$student->id)
                             <div class="d-flex flex-column mt-3">
-                                <form action="{{ route('student-photo-save', ['id' => $student->user_id]) }}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="custom-file p-2 bd-highlight">
-                                        <input type="file" class="custom-file-input" name="image" id="customFile" accept="image/*">
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
-                                    <div class="mt-3 bd-highlight">
-                                        <button type="submit" class="btn btn-iitucolor btn-block">Update photo</button>
-                                    </div>
-                                </form>
+                                <h4>{{$student->getName()}}</h4>
                             </div>
-                            @endif
                             <hr>
                             <div class="mb-2 bd-highlight">
                                 <a href="{{route('certificates', ['id' => $student->user_id])}}" class="btn btn-iitucolor btn-block">Certificates</a>
@@ -111,6 +100,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="card mt-3">
                     <div class="card-body">
                         <h2>Education degree | {{$student->getEduDegName()}}</h2>
@@ -127,7 +117,6 @@
                                 </div>
                             </div>
                         @endif
-                        @if(Auth::user()->student_id==$student->id)
                         <div class="d-flex flex-column bd-highlight mt-3">
                             <form action="{{ route('student-doc-save', ['id' => $student->user_id]) }}" method="post" enctype="multipart/form-data">
                                 @csrf
@@ -141,10 +130,8 @@
                                 </div>
                             </form>
                         </div>
-                        @endif
                     </div>
                 </div>
-                @if(Auth::user()->student_id==$student->id)
                 <div class="card mt-3">
                     <div class="card-body">
                         <h2>Edit profile</h2>
@@ -258,7 +245,6 @@
                         </form>
                     </div>
                 </div>
-                @endif
             </div>
         </div>
     </div>

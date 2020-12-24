@@ -25,7 +25,7 @@
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-iitucolor">
-    <a class="navbar-brand" href="{{url('/')}}"><i class="fas fa-home"></i> ADMISSIONS</a>
+    <a class="navbar-brand" href="{{url('/')}}"><img src="{{ asset('img/iitu_logo.png') }}" style="width: 70px"> ADMISSIONS</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -69,7 +69,41 @@
     </ul>
 </nav>
 <nav class="nav nav-pills nav-fill" style="background-color: #1c1c1c;">
-    <a class="nav-link link text-white" href="#">ONLINE RECEPTION</a>
+    @guest
+        <a type="button" class="nav-link link text-white" data-toggle="modal" data-target="#exampleModal">
+            ONLINE RECEPTION
+        </a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">You aren't authorized</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h6>To use this function you should to authorize.</h6>
+                        <h6>Also you can call to admission or write message to Email <a href="{{route('contacts')}}" class="text-iitucolor">there</a></h6>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a href="{{ route('login') }}" class="btn btn-iitucolor">{{__('Login')}}</a>
+                        <a href="{{ route('register') }}" class="btn btn-iitucolor">{{__('Register')}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @else
+        @if (Auth::user()->admission_member_id!=null)
+            <a href="{{route('reception-admission')}}" class="nav-link link text-white">ONLINE RECEPTION</a>
+        @endif
+        @if (Auth::user()->student_id!=null)
+            <a href="{{route('reception-student')}}" class="nav-link link text-white">ONLINE RECEPTION</a>
+        @endif
+    @endguest
     <a class="nav-link link text-white" href="{{route('news')}}">NEWS</a>
     @foreach($edu_deg as $deg)
         <a class="nav-link link text-white" href="{{ route('edu-deg-info', ['name' => $deg->name]) }}"><span style="text-transform:uppercase;">{{ $deg->name }} PROGRAM</span></a>

@@ -20,7 +20,10 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #b20006;">
-    <a class="navbar-brand" href="{{url('/')}}"><img src="https://lh3.googleusercontent.com/proxy/OcjAT3g7Dhn1orttyBbv-6RBou-LDGokbt-6__UC4lOdgOwXFVFUASUKdSRu80QKHByvE_KY3Kjqk5vSz9evV2k1M4HEwEiFqeaKcG1RbLejLsshqQ" style="width: 70px; height: auto" alt=""> ADMISSIONS</a>
+    <a class="navbar-brand" href="{{url('/')}}"><img src="https://lh3.googleusercontent.com/proxy/OcjAT3g7Dhn1orttyBbv-6RBou-LDGokbt-6__UC4lOdgOwXFVFUASUKdSRu80QKHByvE_KY3Kjqk5vSz9evV2k1M4HEwEiFqeaKcG1RbLejLsshqQ" style="width: 70px; height: auto" alt="">
+        <img src="{{ asset('img/iitu_logo.png') }}" style="width: 70px">
+        ADMISSIONS
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
