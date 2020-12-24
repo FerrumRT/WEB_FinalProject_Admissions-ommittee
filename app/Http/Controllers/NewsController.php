@@ -32,7 +32,9 @@ class NewsController extends Controller
             return redirect('/login');
         if (!Auth::user()->is_adm_member)
             return redirect('/403');
-        return view("pages.news.create")->with('title', 'Add News');
+        $edu_deg = EducationDegree::all();
+        return view("pages.news.create")->with('title', 'Add News')->
+        with('edu_deg', $edu_deg);
     }
 
     /**
@@ -77,6 +79,7 @@ class NewsController extends Controller
         $user = User::find($adm_mem->user_id);
         $edu_deg = EducationDegree::all();
         return view("pages.news.show")->
+        with('title', $one_news->name)->
         with("one_news", $one_news)->
         with("adm_mem", $adm_mem)->
         with("user", $user)->

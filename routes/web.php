@@ -19,7 +19,7 @@ Route::get('/403', 'PageController@accessForbidden');
 
 Route::get('/about', 'PageController@about_us');
 
-Route::get('/contacts', 'PageController@contacts');
+Route::get('/contacts', 'PageController@contacts')->name('contacts');
 
 Route::get('/{name}/info', 'EducationDegreesController@show')->name('edu-deg-info');
 
@@ -79,8 +79,8 @@ Route::post('/admin/{id}/saveAdmissionMember', 'AdmissionMemberController@update
 
 Auth::routes();
 
-Route::resource('education_degrees', 'EducationDegreesController');
-
-Route::resource('faculties', 'FacultiesController');
-
 Route::resource('news', 'NewsController');
+
+Route::get('/sendbasicemail','MailController@basic_email');
+Route::get('/sendhtmlemail','MailController@html_email');
+Route::get('/sendattachmentemail','MailController@attachment_email');
