@@ -23,17 +23,17 @@ class AdmissionMemberController extends Controller
 
     }
 
-    private function isAdission(){
+    private function isAdmission(){
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
     }
 
-    private function isAdissionId(int $id){
+    private function isAdmissionId(int $id){
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
         if (Auth::user()->id != $id)
             return redirect('/403');
@@ -41,37 +41,36 @@ class AdmissionMemberController extends Controller
 
     public function store(Request $request)
     {
-        $this->isAdission();
+        $this->isAdmission();
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required'
+            'name' => 'required | regex:/^[\pL\s-]+$/u',
+            'email' => 'required | email | unique:users',
+            'password' => 'required | min:8'
         ]);
 
         User::create([
             'name' => $request['name'],
             'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'is_adm_member' => true
+            'password' => Hash::make($request['password'])
         ]);
 
-        $user_id = User::where('email', $request['email'])->first()->id;
+        $user = User::where('email', $request['email'])->first();
 
         AdmissionMember::create([
-            'user_id' => $user_id
+            'user_id' => $user->id
         ]);
 
-        $ad_mem_id = AdmissionMember::where('user_id', $user_id)->first()->id;
+        $ad_mem_id = AdmissionMember::where('user_id', $user->id)->first()->id;
 
-        $user = User::where('admission_member_id', $ad_mem_id);
         $user->admission_member_id = $ad_mem_id;
+        $user->save();
 
         return redirect('/admin/admission_members')->with('success', 'Admission member created');
     }
 
     public function show(int $id)
     {
-        $this->isAdissionId($id);
+        $this->isAdmissionId($id);
         $user = User::find($id);
         $admission_member = AdmissionMember::where('user_id',$user->id)->first();
         $ad_mem_img = \Storage::disk('public')->url($admission_member->image_url);
@@ -84,7 +83,7 @@ class AdmissionMemberController extends Controller
 
     public function edit($id)
     {
-        $this->isAdission();
+        $this->isAdmission();
 
         $admission_member = AdmissionMember::find($id);
         return view("pages/admin/ad_mem_edit")->with('title', "Admission Members - Admission")->with("admission_member", $admission_member);
@@ -92,10 +91,10 @@ class AdmissionMemberController extends Controller
 
     public function update_profile(Request $request, $id)
     {
-        $this->isAdissionId($id);
+        $this->isAdmissionId($id);
 
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required | regex:/^[\pL\s-]+$/u'
         ]);
 
         $user = User::find($id);
@@ -111,10 +110,10 @@ class AdmissionMemberController extends Controller
 
     public function update_photo(Request $request, $id)
     {
-        $this->isAdissionId($id);
+        $this->isAdmissionId($id);
 
         $this->validate($request, [
-            'image' => 'required'
+            'image' => 'required|image'
         ]);
 
         $user = User::find($id);
@@ -132,7 +131,7 @@ class AdmissionMemberController extends Controller
 
     public function update_password(Request $request, $id)
     {
-        $this->isAdissionId($id);
+        $this->isAdmissionId($id);
 
         $this->validate($request, [
             'old_password' => 'required|min:8',
@@ -158,10 +157,11 @@ class AdmissionMemberController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->isAdission();
+        $this->isAdmission();
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required'
+            'name' => 'required | regex:/^[\pL\s-]+$/u',
+            'email' => 'required | email',
+            'image' => 'image'
         ]);
 
         $admission_member = AdmissionMember::find($id);
@@ -191,8 +191,10 @@ class AdmissionMemberController extends Controller
 
     public function destroy($id)
     {
-        $this->isAdission();
+        $this->isAdmission();
         $admission_member = AdmissionMember::find($id);
+        $user = User::where('admission_member_id', $id);
+        $user->delete();
         $admission_member->delete();
         return redirect('/admin/admission_members')->with('success', 'Admission member deleted');
     }

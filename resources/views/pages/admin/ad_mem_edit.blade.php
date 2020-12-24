@@ -23,11 +23,11 @@
                 <input type="date" class="form-control" name="birthdate" value="{{ $admission_member->getBirthdate() }}">
             </div>
             <div class="form-group">
-                <input type="number" class="form-control" name="phone_number" value="{{ $admission_member->getPhoneNumber() }}" placeholder="Phone number">
+                <input type="tel" class="form-control" placeholder="8(7**)***-**-**" pattern="[8]{1}[(]{1}[0-9]{3}[)]{1}[0-9]{3}-[0-9]{2}-[0-9]{2}" name="phone_number" value="{{ $admission_member->getPhoneNumber() }}">
             </div>
             <div class="form-group">
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="image" id="customFile">
+                    <input type="file" class="custom-file-input" name="image" id="customFile" accept="image/*">
                     <label class="custom-file-label" for="customFile">Choose file</label>
                 </div>
             </div>

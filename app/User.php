@@ -14,10 +14,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_adm_member',
+        'is_admin',
         'birthdate',
         'phone_number',
-        'admission_member_id'
+        'admission_member_id',
+        'student_id'
     ];
 
 
@@ -29,6 +30,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime'
     ];
+
+    public function student(){
+        return $this->belongsTo('App\Student', 'student_id', 'id');
+    }
 
     public function admission_member(){
         return $this->belongsTo('App\AdmissionMember', 'admission_member_id', 'id');

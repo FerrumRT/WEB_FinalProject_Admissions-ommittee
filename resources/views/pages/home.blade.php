@@ -27,7 +27,7 @@
                 @guest
 
                 @else
-                    @if(Auth::user()->is_adm_member)
+                    @if(Auth::user()->admission_member_id!=null)
                         <a href="{{ url('/news/create') }}" class="btn btn-outline-iitucolor ml-3">Add News</a>
                     @endif
                 @endguest

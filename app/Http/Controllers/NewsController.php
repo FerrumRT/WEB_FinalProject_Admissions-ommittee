@@ -31,7 +31,7 @@ class NewsController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->admission_member_id!=null)
             return redirect('/403');
         $edu_deg = EducationDegree::all();
         return view("pages.news.create")->with('title', 'Add News')->
@@ -48,7 +48,7 @@ class NewsController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->admission_member_id!=null)
             return redirect('/403');
         $this->validate($request, [
             'title' => 'required',
@@ -63,7 +63,7 @@ class NewsController extends Controller
         }
         $news->content = $request->input('content');
         $news->short_content = substr($news->content, 0, 100) . "...";
-        $news->admission_member_id = Auth::user()->getAuthIdentifier();
+        $news->admission_member_id = (Auth::user()->admission_member_id);
         $news->save();
 
         return redirect('/news/' . $news->id)->with('success', 'News added');
@@ -115,15 +115,13 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->admission_member_id!=null)
             return redirect('/403');
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
-            return redirect('403');
         $news = News::find($id);
         $edu_deg = EducationDegree::all();
-        if (!Auth::user()->is_adm_member || Auth::user()->id != AdmissionMember::find($news->admission_member_id)->user_id)
+        if (!Auth::user()->admission_member_id!=null || Auth::user()->id != AdmissionMember::find($news->admission_member_id)->user_id)
             return redirect('403');
         return view("pages.news.edit")
             ->with('title', 'Edit News')
@@ -142,7 +140,7 @@ class NewsController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->admission_member_id!=null)
             return redirect('/403');
         $this->validate($request, [
             'title' => 'required',
@@ -158,7 +156,7 @@ class NewsController extends Controller
         }
         $news->content = $request->input('content');
         $news->short_content = substr($news->content, 0, 100) . "...";
-        $news->admission_member_id = Auth::user()->getAuthIdentifier();
+        $news->admission_member_id = Auth::user()->admission_member_id;
         $news->save();
 
         return redirect('/news/' . $news->id)->with('success', 'Updating completed');
@@ -174,7 +172,7 @@ class NewsController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->admission_member_id!=null)
             return redirect('/403');
         $news = News::find($id);
         $news->delete();

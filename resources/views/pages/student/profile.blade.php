@@ -24,7 +24,7 @@
                                 <form action="{{ route('student-photo-save', ['id' => $student->user_id]) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="custom-file p-2 bd-highlight">
-                                        <input type="file" class="custom-file-input" name="image" id="customFile">
+                                        <input type="file" class="custom-file-input" name="image" id="customFile" accept="image/*">
                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                     </div>
                                     <div class="p-2 bd-highlight">

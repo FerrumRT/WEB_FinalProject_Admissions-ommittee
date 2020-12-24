@@ -15,16 +15,16 @@ class StudentController extends Controller
     private function isAdission(){
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
     }
 
     private function isStudent(int $id){
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_adm_member)
+        if (!Auth::user()->is_admin)
             return redirect('/403');
-        if (Auth::user()->id != $id && !Auth::user()->is_adm_member)
+        if (Auth::user()->id != $id && !Auth::user()->is_admin)
             return redirect('/403');
     }
 
@@ -32,9 +32,9 @@ class StudentController extends Controller
     {
         $this->isAdission();
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required',
+            'name' => 'required | regex:/^[\pL\s-]+$/u',
+            'email' => 'required | email | unique:users',
+            'password' => 'required | min:8',
             'edu_deg' => 'required'
         ]);
 
@@ -44,12 +44,18 @@ class StudentController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
-        $user_id = User::where('email', $request['email'])->first()->id;
+        $user = User::where('email', $request['email'])->first();
 
         Student::create([
-            'user_id' => $user_id,
+            'user_id' => $user->id,
             'education_degree_id' => $request['edu_deg']
         ]);
+
+        $student_id = Student::where('user_id', $user->id)->first()->id;
+
+        $user->student_id = $student_id;
+
+        $user->save();
 
         return redirect('/admin/students')->with('success', 'Student created');
     }
@@ -76,7 +82,7 @@ class StudentController extends Controller
         $this->isStudent($id);
 
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required | regex:/^[\pL\s-]+$/u'
         ]);
 
         $user = User::find($id);
@@ -95,7 +101,7 @@ class StudentController extends Controller
         $this->isStudent($id);
 
         $this->validate($request, [
-            'image' => 'required'
+            'image' => 'required|image'
         ]);
 
         $student = Student::where('user_id', $id)->first();
@@ -140,8 +146,9 @@ class StudentController extends Controller
     {
         $this->isAdission();
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required'
+            'name' => 'required | regex:/^[\pL\s-]+$/u',
+            'email' => 'required | email',
+            'image' => 'image'
         ]);
 
         $student = Student::find($id);
@@ -165,13 +172,15 @@ class StudentController extends Controller
         }
         $student->save();
 
-        return redirect('/admin/students')->with('success', 'AStudent updated');
+        return redirect('/admin/students')->with('success', 'A student updated');
     }
 
     public function destroy($id)
     {
         $this->isAdission();
         $student = Student::find($id);
+        $user = User::where('student_id', $id);
+        $user->delete();
         $student->delete();
         return redirect('/admin/students')->with('success', '$student deleted');
     }

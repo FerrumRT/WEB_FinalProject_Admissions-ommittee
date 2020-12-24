@@ -21,9 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('phone_number')->nullable();
             $table->date("birthdate")->nullable();
-            $table->boolean("is_adm_member")->default(0);
-            $table->unsignedBigInteger("admission_member_id")->nullable();
-            $table->unsignedBigInteger("student_id")->nullable();
+            $table->boolean("is_admin")->default(0);
+            $table->foreignId("admission_member_id")->constrained('admission_members')->nullable();
+            $table->foreignId("student_id")->constrained('students')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
