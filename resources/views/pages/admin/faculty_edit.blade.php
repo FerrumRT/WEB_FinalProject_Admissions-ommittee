@@ -36,7 +36,7 @@
             </div>
             <button type="submit" class="btn btn-outline-success">Save</button>
         </form>
-        <form action="{{ route('delete-ad-mem', ['id' => $faculty->id]) }}" method="post">
+        <form action="{{ route('delete-faculty', ['id' => $faculty->id]) }}" method="post">
             @csrf
             <button type="submit" class="btn btn-outline-danger mt-2">Delete</button>
         </form>

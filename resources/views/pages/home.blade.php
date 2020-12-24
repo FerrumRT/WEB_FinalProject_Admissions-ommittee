@@ -17,29 +17,48 @@
 
 <!-- News -->
 <div class="container py-4">
-    <div class="pt-3">
-        <h2>
-            News
-            @guest
+    <div class="pt-3 row">
+        <div class="col-4">
+            <h2>
+                News
 
-            @else
-                @if(Auth::user()->is_adm_member)
-                    <a href="{{ url('/news/create') }}" class="btn btn-primary float-right" style="background-color: darkred; border-color: darkred">Add News</a>
-                @endif
-            @endguest
-        </h2>
+                <a href="{{ route('news') }}" class="btn btn-outline-iitucolor ml-3">All news</a>
+
+                @guest
+
+                @else
+                    @if(Auth::user()->is_adm_member)
+                        <a href="{{ url('/news/create') }}" class="btn btn-outline-iitucolor ml-3">Add News</a>
+                    @endif
+                @endguest
+            </h2>
+
+        </div>
+        <div class="col-8">
+                <div class="d-flex justify-content-end">
+                    <form action="{{ route('news') }}" method="get" class="form-inline my-2 my-lg-0 ">
+                        <input class="form-control mr-sm-2" type="search" name="title" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0"  type="submit"> <i class="fas fa-search"></i> </button>
+                    </form>
+                </div>
+        </div>
+
     </div>
     <hr>
     <div class="owl-carousel owl-theme">
         @foreach($news as $one_news)
         <div class="item">
             <div class="card">
-                <img src="{{ $one_news->image_url }}" class="card-img-top" alt="...">
+                <div class="d-flex justify-content-center mx-1 mt-2">
+                    <div class="crop__news">
+                        <img src="{{ $one_news->image_url }}" class="card-img-top" alt="...">
+                    </div>
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ $one_news->title }}</h5>
                     <p class="card-text">{{ $one_news->short_content }}</p>
-                    <small class="float-left my-2">{{ date_format(date_create($one_news->created_date), "M d Y H:i") }}</small>
-                    <a href="news/{{ $one_news->id }}" class="btn btn-primary border float-right" style="background-color: darkred; border-color: darkred">More...</a>
+                    <small class="float-left my-2">{{ date_format(date_create($one_news->created_date), "M d Y") }}</small>
+                    <a href="news/{{ $one_news->id }}" class="btn btn-iitucolor border float-right" >More...</a>
                 </div>
             </div>
         </div>

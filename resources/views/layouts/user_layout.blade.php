@@ -24,7 +24,7 @@
 <body>
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #b20006;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-iitucolor">
     <a class="navbar-brand" href="{{url('/')}}"><i class="fas fa-home"></i> ADMISSIONS</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +70,7 @@
 </nav>
 <nav class="nav nav-pills nav-fill" style="background-color: #1c1c1c;">
     <a class="nav-link link text-white" href="#">ONLINE RECEPTION</a>
+    <a class="nav-link link text-white" href="{{route('news')}}">NEWS</a>
     @foreach($edu_deg as $deg)
         <a class="nav-link link text-white" href="{{ route('edu-deg-info', ['name' => $deg->name]) }}"><span style="text-transform:uppercase;">{{ $deg->name }} PROGRAM</span></a>
     @endforeach

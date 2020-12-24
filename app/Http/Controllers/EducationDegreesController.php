@@ -33,17 +33,20 @@ class EducationDegreesController extends Controller
         EducationDegree::create([
             'name' => $request['name']
         ]);
-        return redirect('/admin/education_degrees')->with('success', 'Education created');
+        return redirect('/admin/education_degrees')
+            ->with('success', 'Education created');
     }
 
     public function show($name)
     {
         $edu_deg = EducationDegree::all();
-        $deg = EducationDegree::where('name', $name)->first();
-        $faculties = Faculty::where('education_degree_id', $deg->id);
-        return view("pages/edu_deg/show")->with('title', "Education Degree - Admission")->with("deg", $deg)->with("edu_deg", $edu_deg)->with("faculties", $faculties);
+        $deg = EducationDegree::all()->where('name', '=', $name)->first();
+        $faculties = Faculty::all()->where('education_degree_id', '=', $deg->id);
+        return view("pages/edu_deg/show")
+            ->with('title', "Education Degree - Admission")
+            ->with("deg", $deg)->with("edu_deg", $edu_deg)
+            ->with("faculties", $faculties);
     }
-
 
     public function edit($id)
     {

@@ -23,12 +23,25 @@ class AdmissionMemberController extends Controller
 
     }
 
-    public function store(Request $request)
-    {
+    private function isAdission(){
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_adm_member)
             return redirect('/403');
+    }
+
+    private function isAdissionId(int $id){
+        if (Auth::user() == null)
+            return redirect('/login');
+        if (!Auth::user()->is_adm_member)
+            return redirect('/403');
+        if (Auth::user()->id != $id)
+            return redirect('/403');
+    }
+
+    public function store(Request $request)
+    {
+        $this->isAdission();
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
@@ -48,15 +61,17 @@ class AdmissionMemberController extends Controller
             'user_id' => $user_id
         ]);
 
+        $ad_mem_id = AdmissionMember::where('user_id', $user_id)->first()->id;
+
+        $user = User::where('admission_member_id', $ad_mem_id);
+        $user->admission_member_id = $ad_mem_id;
+
         return redirect('/admin/admission_members')->with('success', 'Admission member created');
     }
 
     public function show(int $id)
     {
-        if (Auth::user() == null)
-            return redirect('/login');
-        if (!Auth::user()->is_adm_member)
-            return redirect('/403');
+        $this->isAdissionId($id);
         $user = User::find($id);
         $admission_member = AdmissionMember::where('user_id',$user->id)->first();
         $ad_mem_img = \Storage::disk('public')->url($admission_member->image_url);
@@ -69,26 +84,85 @@ class AdmissionMemberController extends Controller
 
     public function edit($id)
     {
-        if (Auth::user() == null)
-            return redirect('/login');
-        if (!Auth::user()->is_adm_member)
-            return redirect('/403');
+        $this->isAdission();
+
         $admission_member = AdmissionMember::find($id);
         return view("pages/admin/ad_mem_edit")->with('title', "Admission Members - Admission")->with("admission_member", $admission_member);
     }
 
+    public function update_profile(Request $request, $id)
+    {
+        $this->isAdissionId($id);
+
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $user = User::find($id);
+
+        $user->name = $request->input('name');
+        $user->phone_number = $request->input('phone_number');
+        $user->birthdate = $request->input('birthdate');
+
+        $user->save();
+
+        return redirect('/profile/admission/'.$id)->with('success', 'Profile updated');
+    }
+
+    public function update_photo(Request $request, $id)
+    {
+        $this->isAdissionId($id);
+
+        $this->validate($request, [
+            'image' => 'required'
+        ]);
+
+        $user = User::find($id);
+        $admission_member = AdmissionMember::find($user->id);
+
+        if (!empty($request->file('image'))) {
+            $img_path = $request->file('image')->store('img/ad_mem_img', 'public');
+            $admission_member->image_url = '/storage/'.$img_path;
+        }
+
+        $admission_member->save();
+
+        return redirect('/profile/admission/'.$id)->with('success', 'Profile photo updated');
+    }
+
+    public function update_password(Request $request, $id)
+    {
+        $this->isAdissionId($id);
+
+        $this->validate($request, [
+            'old_password' => 'required|min:8',
+            'new_password' => 'required|min:8',
+            're_new_password' => 'required|min:8',
+        ]);
+
+        $user = User::find($id);
+
+        $old = $request->input('old_password');
+        $new = $request->input('new_password');
+        $re_new = $request->input('re_new_password');
+
+        if ($re_new != $new || !(Hash::check($old, $user->password)))
+            return redirect('/profile/admission/'.$id)->with('error', 'Passwords are not match');
+
+        $user->password = Hash::make($new);
+
+        $user->save();
+
+        return redirect('/profile/admission/'.$id)->with('success', 'Profile updated');
+    }
 
     public function update(Request $request, $id)
     {
-        if (Auth::user() == null)
-            return redirect('/login');
-        if (!Auth::user()->is_adm_member)
-            return redirect('/403');
+        $this->isAdission();
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required'
         ]);
-
 
         $admission_member = AdmissionMember::find($id);
         $user = User::find($admission_member->user_id);
@@ -104,13 +178,10 @@ class AdmissionMemberController extends Controller
             return redirect('/admin/'.$id.'/editAdmissionMember')->with('error', 'Passwords doesnt match');
         $user->phone_number = $request->input('phone_number');
         $user->birthdate = $request->input('birthdate');
-
-        $img = \Image::make($request->file('image')->getRealPath());
-        $img_path = 'img/ad_mem_img/'.'ad_mem_'.$admission_member->id.'_img'.'.jpg';
-        $img->save(storage_path('app/public/'.$img_path));
-
-        $admission_member->image_url = $img_path;
-
+        if (!empty($request->file('image'))) {
+            $img_path = $request->file('image')->store('img/ad_mem_img', 'public');
+            $admission_member->image_url = '/storage/' . $img_path;
+        }
         $user->save();
 
         $admission_member->save();
@@ -120,10 +191,7 @@ class AdmissionMemberController extends Controller
 
     public function destroy($id)
     {
-        if (Auth::user() == null)
-            return redirect('/login');
-        if (!Auth::user()->is_adm_member)
-            return redirect('/403');
+        $this->isAdission();
         $admission_member = AdmissionMember::find($id);
         $admission_member->delete();
         return redirect('/admin/admission_members')->with('success', 'Admission member deleted');

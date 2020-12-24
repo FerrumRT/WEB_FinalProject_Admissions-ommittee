@@ -8,6 +8,7 @@ use App\News;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -32,7 +33,9 @@ class NewsController extends Controller
             return redirect('/login');
         if (!Auth::user()->is_adm_member)
             return redirect('/403');
-        return view("pages.news.create")->with('title', 'Add News');
+        $edu_deg = EducationDegree::all();
+        return view("pages.news.create")->with('title', 'Add News')->
+        with('edu_deg', $edu_deg);
     }
 
     /**
@@ -49,13 +52,15 @@ class NewsController extends Controller
             return redirect('/403');
         $this->validate($request, [
             'title' => 'required',
-            'image_url' => 'required',
             'content' => 'required',
         ]);
 
         $news = new News;
         $news->title = $request->input('title');
-        $news->image_url = $request->input('image_url');
+        if (!empty($request->file('image'))) {
+            $img_path = $request->file('image')->store('img/news_img', 'public');
+            $news->image_url = "/storage/" . $img_path;
+        }
         $news->content = $request->input('content');
         $news->short_content = substr($news->content, 0, 100) . "...";
         $news->admission_member_id = Auth::user()->getAuthIdentifier();
@@ -81,6 +86,24 @@ class NewsController extends Controller
         with("adm_mem", $adm_mem)->
         with("user", $user)->
         with('edu_deg', $edu_deg);
+    }
+
+    public function search(Request $request)
+    {
+        $title = $request->input('title');
+        if(!empty($title))
+            $news = DB::table('news')->where('title','LIKE', "%".$title."%")->get();
+        else
+            $news = News::all();
+
+        $edu_deg = EducationDegree::all();
+
+
+
+        return view("pages.news.result")->
+        with("news", $news)->
+        with('edu_deg', $edu_deg)->
+        with('title', $title);
     }
 
     /**
@@ -122,13 +145,16 @@ class NewsController extends Controller
             return redirect('/403');
         $this->validate($request, [
             'title' => 'required',
-            'image_url' => 'required',
             'content' => 'required',
         ]);
 
+
         $news = News::find($id);
         $news->title = $request->input('title');
-        $news->image_url = $request->input('image_url');
+        if (!empty($request->file('image'))) {
+            $img_path = $request->file('image')->store('img/news_img', 'public');
+            $news->image_url = "/storage/" . $img_path;
+        }
         $news->content = $request->input('content');
         $news->short_content = substr($news->content, 0, 100) . "...";
         $news->admission_member_id = Auth::user()->getAuthIdentifier();

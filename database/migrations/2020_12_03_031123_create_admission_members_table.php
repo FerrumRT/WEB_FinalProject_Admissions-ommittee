@@ -11,7 +11,7 @@ class CreateAdmissionMembersTable extends Migration
         Schema::create('admission_members', function (Blueprint $table) {
             $table->bigIncrements("id");
             $table->string("image_url")->nullable();
-            $table->foreignId("user_id")->constrained("users");
+            $table->foreignId("user_id")->constrained("users")->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

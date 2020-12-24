@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     protected $fillable = [
-        'user_id', 'school_name', 'university_name', 'education_degree_id', 'student_picture_url'
+        'user_id', 'school_name', 'university_name', 'education_degree_id', 'student_picture_url',
+        'confirm_documents_url'
     ];
 
     public function certificates(){
@@ -39,15 +40,15 @@ class Student extends Model
 
     public function getBirthdate(){
         $user = User::find($this->user_id);
-        return $user->birthdate;
+        return !empty($user->birthdate)?$user->birthdate:null;
     }
 
     public function getPhoneNumber(){
         $user = User::find($this->user_id);
-        return $user->phone_number;
+        return !empty($user->phone_number)?$user->phone_number:null;
     }
 
     public function getEduDegName(){
-        return EducationDegree::find($this->education_degree_id)->name;
+        return !empty(EducationDegree::find($this->education_degree_id)->name)?EducationDegree::find($this->education_degree_id)->name:null;
     }
 }

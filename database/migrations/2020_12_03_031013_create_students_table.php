@@ -20,7 +20,7 @@ class CreateStudentsTable extends Migration
             $table->string('confirm_documents_url')->nullable();
             $table->string('school_name')->nullable();
             $table->string('university_name')->nullable();
-            $table->foreignId("user_id")->constrained("users");
+            $table->foreignId("user_id")->constrained("users")->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

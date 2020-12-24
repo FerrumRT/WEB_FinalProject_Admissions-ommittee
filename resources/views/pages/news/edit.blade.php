@@ -4,14 +4,19 @@
     <div class="container my-3">
         <div class="col-6 offset-3">
             <h3>Edit News</h3>
-            {!! Form::open(['action' => ['NewsController@update', $news->id], 'method'=> 'POST']) !!}
+            {!! Form::open(['action' => ['NewsController@update', $news->id], 'method'=> 'POST', 'enctype' => "multipart/form-data"]) !!}
             <div class="form-group">
                 {{ Form::label('title'), 'Title' }}
                 {{ Form::text('title', $news->title, ['class'=> 'form-control', 'placeholder' => 'Title']) }}
             </div>
             <div class="form-group">
-                {{ Form::label('image_url'), 'Image URL' }}
-                {{ Form::text('image_url', $news->image_url, ['class'=> 'form-control']) }}
+                <div class="crop py-2 ">
+                    <img src="{{$news->image_url}}">
+                </div>
+                <div class="custom-file mt-4">
+                    <input type="file" class="custom-file-input" name="image" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
             </div>
             <div class="form-group">
                 {{ Form::label('content'), 'Content' }}

@@ -25,11 +25,25 @@ Route::get('/{name}/info', 'EducationDegreesController@show')->name('edu-deg-inf
 
 Route::get('/faculties/{id}', 'FacultiesController@show')->name('faculty-info');
 
-Route::get('/profile/member/{id}', 'StudentController@show')->name('ad-mem-profile');
-
 Route::get('/profile/student/{id}', 'StudentController@show')->name('student-profile');
 
-Route::get('/profile/{id}', 'AdmissionMemberController@show')->name('ad-mem-profile');
+Route::get('/profile/admission/{id}', 'AdmissionMemberController@show')->name('ad-mem-profile');
+
+Route::post('/save/admission/{id}/profile', 'AdmissionMemberController@update_profile')->name('ad-mem-profile-save');
+
+Route::post('/save/admission/{id}/password', 'AdmissionMemberController@update_password')->name('ad-mem-password-save');
+
+Route::post('/save/admission/{id}/photo', 'AdmissionMemberController@update_photo')->name('ad-mem-photo-save');
+
+Route::post('/save/student/{id}/profile', 'StudentController@update_profile')->name('student-profile-save');
+
+Route::post('/save/student/{id}/password', 'StudentController@update_password')->name('student-password-save');
+
+Route::post('/save/student/{id}/photo', 'StudentController@update_photo')->name('student-photo-save');
+
+Route::get('/result', 'NewsController@search')->name('news');
+
+
 
 /** Admin panel
 * Faculties */

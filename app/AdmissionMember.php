@@ -35,12 +35,12 @@ class AdmissionMember extends Model
 
     public function getBirthdate(){
         $user = User::find($this->user_id);
-        return $user->birthdate;
+        return !empty($user->birthdate)?$user->birthdate:null;
     }
 
     public function getPhoneNumber(){
         $user = User::find($this->user_id);
-        return $user->phone_number;
+        return !empty($user->phone_number)?$user->phone_number:null;
     }
 
 }
