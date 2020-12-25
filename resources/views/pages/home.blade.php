@@ -21,9 +21,6 @@
         <div class="col-4">
             <h2>
                 News
-
-                <a href="{{ route('news') }}" class="btn btn-outline-iitucolor ml-3">All news</a>
-
                 @guest
 
                 @else

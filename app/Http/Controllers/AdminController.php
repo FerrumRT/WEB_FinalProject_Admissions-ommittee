@@ -18,7 +18,7 @@ class AdminController extends Controller
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
         $faculties = Faculty::all();
         $edu_deg = EducationDegree::all();
         return view("pages/admin/faculties")->with('title', "Faculties - Admission")->with("faculties", $faculties)->with("edu_deg", $edu_deg);
@@ -29,7 +29,7 @@ class AdminController extends Controller
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
         $ad_members = AdmissionMember::all();
         return view("pages/admin/ad_mem")->with('title', "Admission Members - Admission")->with("ad_members", $ad_members);
     }
@@ -39,7 +39,7 @@ class AdminController extends Controller
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
         $edu_deg = EducationDegree::all();
         return view("pages/admin/edu_deg")->with('title', "Admission Members - Admission")->with("edu_deg", $edu_deg);
     }
@@ -49,7 +49,7 @@ class AdminController extends Controller
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
         $students = Student::all();
         $edu_deg = EducationDegree::all();
         return view("pages/admin/student")->with('title', "Stundets - Admission")->with("students", $students)->with("edu_deg", $edu_deg);

@@ -19,7 +19,12 @@ class PageController extends Controller
 
     public function accessForbidden(){
         $edu_deg = EducationDegree::all();
-        return view('pages.403')->with('title', '403')->with("edu_deg", $edu_deg);
+        return view('errors.403')->with('title', '403')->with("edu_deg", $edu_deg);
+    }
+
+    public function pageNotFound(){
+        $edu_deg = EducationDegree::all();
+        return view('errors.404')->with('title', '404')->with("edu_deg", $edu_deg);
     }
 
     public function about_us(){

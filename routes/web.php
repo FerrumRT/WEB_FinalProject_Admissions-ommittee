@@ -17,6 +17,8 @@ Route::get('/', 'PageController@index');
 
 Route::get('/403', 'PageController@accessForbidden');
 
+Route::get('/404', 'PageController@pageNotFound');
+
 Route::get('/about', 'PageController@about_us');
 
 Route::get('/contacts', 'PageController@contacts')->name('contacts');

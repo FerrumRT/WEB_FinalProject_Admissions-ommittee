@@ -26,7 +26,7 @@ class FacultiesController extends Controller
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
@@ -46,6 +46,8 @@ class FacultiesController extends Controller
     public function show(int $id)
     {
         $faculty = Faculty::find($id);
+        if($faculty==null)
+            abort(404);
         $edu_name = EducationDegree::find($faculty->education_degree_id)->name;
         $edu_deg = EducationDegree::all();
         return view("pages/faculty/show")
@@ -60,8 +62,10 @@ class FacultiesController extends Controller
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
         $faculties = Faculty::find($id);
+        if($faculties==null)
+            abort(404);
         $edu_deg = EducationDegree::all();
         return view("pages/admin/faculty_edit")
             ->with('title', "Faculties - Admission")
@@ -75,7 +79,7 @@ class FacultiesController extends Controller
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
@@ -83,6 +87,8 @@ class FacultiesController extends Controller
         ]);
 
         $faculty = Faculty::find($id);
+        if($faculty==null)
+            abort(404);
         if(!empty($request->file('image'))){
             $img_path = $request->file('image')->store('img/faculty_img', 'public');
             $faculty->image_url = '/storage/'.$img_path;
@@ -110,7 +116,7 @@ class FacultiesController extends Controller
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
         $faculty = Faculty::find($id);
         $faculty->delete();
         return redirect('/admin/faculties')->with('success', 'Faculty deleted');

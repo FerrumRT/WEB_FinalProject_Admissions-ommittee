@@ -16,16 +16,16 @@ class CertificateController extends Controller
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
     }
 
     private function isStudent(int $id){
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
         if (Auth::user()->id != $id && !Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
     }
 
 
@@ -33,6 +33,8 @@ class CertificateController extends Controller
     {
         $this->isStudent($id);
         $student = Student::where('user_id',$id)->first();
+        if($student==null)
+            abort(404);
         $edu_deg = EducationDegree::all();
         $name = $request->input('certificate');
         if (!empty($name))
@@ -57,6 +59,9 @@ class CertificateController extends Controller
         ]);
 
         $student_id = DB::table('students')->where('user_id', $id)->first()->id;
+
+        if($student_id==null)
+            abort(404);
 
         $doc = $request->file('file')->store('confirm_doc', 'public');
         $doc_path = '/storage/'.$doc;
@@ -83,7 +88,14 @@ class CertificateController extends Controller
             ->select('users.*')
             ->first();
 
+        if($user==null)
+            abort(404);
+
         $certificate = Certificate::find($id);
+
+        if($certificate==null)
+            abort(404);
+
         $certificate->delete();
 
         return redirect('/student/'.$user->id.'/certificates')->with('success', 'Certificate deleted');

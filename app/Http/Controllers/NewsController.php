@@ -31,8 +31,8 @@ class NewsController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->admission_member_id!=null)
-            return redirect('/403');
+        if (!Auth::user()->admission_member_id != null)
+            abort(403);
         $edu_deg = EducationDegree::all();
         return view("pages.news.create")->with('title', 'Add News')->
         with('edu_deg', $edu_deg);
@@ -48,8 +48,8 @@ class NewsController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->admission_member_id!=null)
-            return redirect('/403');
+        if (!Auth::user()->admission_member_id != null)
+            abort(403);
         $this->validate($request, [
             'title' => 'required',
             'content' => 'required',
@@ -78,6 +78,8 @@ class NewsController extends Controller
     public function show($id)
     {
         $one_news = News::find($id);
+        if ($one_news == null)
+            abort(404);
         $adm_mem = AdmissionMember::find($one_news->admission_member_id);
         $user = User::find($adm_mem->user_id);
         $edu_deg = EducationDegree::all();
@@ -98,8 +100,8 @@ class NewsController extends Controller
     public function search(Request $request)
     {
         $title = $request->input('title');
-        if(!empty($title))
-            $news = DB::table('news')->where('title','LIKE', "%".$title."%")->paginate(10);
+        if (!empty($title))
+            $news = DB::table('news')->where('title', 'LIKE', "%" . $title . "%")->paginate(10);
         else
             $news = News::paginate(10);
 
@@ -122,14 +124,14 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        if (!Auth::user()->admission_member_id!=null)
-            return redirect('/403');
+        if (!Auth::user()->admission_member_id != null)
+            abort(403);
         if (Auth::user() == null)
             return redirect('/login');
         $news = News::find($id);
         $edu_deg = EducationDegree::all();
-        if (!Auth::user()->admission_member_id!=null || Auth::user()->id != AdmissionMember::find($news->admission_member_id)->user_id)
-            return redirect('403');
+        if (!Auth::user()->admission_member_id != null || Auth::user()->id != AdmissionMember::find($news->admission_member_id)->user_id)
+            abort(403);
         return view("pages.news.edit")
             ->with('title', 'Edit News')
             ->with('news', $news)
@@ -147,8 +149,8 @@ class NewsController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->admission_member_id!=null)
-            return redirect('/403');
+        if (!Auth::user()->admission_member_id != null)
+            abort(403);
         $this->validate($request, [
             'title' => 'required',
             'content' => 'required',
@@ -156,6 +158,8 @@ class NewsController extends Controller
 
 
         $news = News::find($id);
+        if ($news == null)
+            abort(404);
         $news->title = $request->input('title');
         if (!empty($request->file('image'))) {
             $img_path = $request->file('image')->store('img/news_img', 'public');
@@ -179,9 +183,11 @@ class NewsController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->admission_member_id!=null)
-            return redirect('/403');
+        if (!Auth::user()->admission_member_id != null)
+            abort(403);
         $news = News::find($id);
+        if ($news == null)
+            abort(404);
         $news->delete();
         return redirect('/')->with('success', 'News deleted');
     }
