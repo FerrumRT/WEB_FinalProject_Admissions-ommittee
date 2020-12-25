@@ -76,15 +76,15 @@
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content ">
+                    <div class="modal-header py-4 px-3">
                         <h5 class="modal-title" id="exampleModalLabel">You aren't authorized</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body py-4 px-3">
                         <h6>To use this function you should to authorize.</h6>
                         <h6>Also you can call to admission or write message to Email <a href="{{route('contacts')}}" class="text-iitucolor">there</a></h6>
                     </div>
@@ -109,10 +109,11 @@
         <a class="nav-link link text-white" href="{{ route('edu-deg-info', ['name' => $deg->name]) }}"><span style="text-transform:uppercase;">{{ $deg->name }} PROGRAM</span></a>
     @endforeach
 </nav>
-<div class="container-fluid p-0" style="min-height: 468px">
+<div class="container-fluid p-0 my-4" style="min-height: 468px">
     @include('inc.message')
     @yield('content')
 </div>
+
 <footer class="container-fluid" style="background-color:#4c5d67;">
     <div class="container pt-5 pb-3 text-white">
         <div class="row justify-content-center pb-4">

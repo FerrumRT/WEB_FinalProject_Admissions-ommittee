@@ -4,7 +4,11 @@
 <div class="container mt-3">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div  style="margin:  100px 0 0 0">
+                <h2 class="text-iitucolor">Registration</h2>
+                <hr>
+            </div>
+            <div class="card py-5"  style="margin:  100px 0 200px 0">
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf

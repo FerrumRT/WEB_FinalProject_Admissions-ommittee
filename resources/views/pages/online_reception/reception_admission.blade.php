@@ -71,31 +71,33 @@
                 </div>
                 @if(!empty($chats))
                 <div class="card mt-3">
-                    <div class="card-body">
-                        <h2>Recent chats</h2>
+                        <h2 class="mt-3 ml-3 mb-3">Recent chats</h2>
 
                         @foreach($chats as $chat)
-                            <hr class="mt-0">
-                            <a href="{{route('reception-chat', ['id' => $chat->id])}}" class="card-link text-dark">
+                            <hr class="my-0">
+                            <a href="{{route('reception-chat', ['id' => $chat->id])}}" class="card-chat card-chat-link text-dark px-4 pt-1">
                                 <div class="row">
                                     <div class="my-2 mx-3">
                                         <div class="my-4 crop__chat" >
-                                            @if($chat->latest_message_sender)
                                                 <img src="{{$chat->getStudentPic()}}" >
-                                            @else
-                                                <img src="{{$chat->getAdmissionPic()}}" >
-                                            @endif
                                         </div>
                                     </div>
                                     <div class="my-2 d-flex flex-column">
                                         <div class="p-1"><h5><b>
-                                                    @if($chat->latest_message_sender)
                                                         {{$chat->getStudentName()}}
-                                                    @else
-                                                        {{$chat->getAdmissionName()}}
-                                                    @endif
                                                 </b></h5></div>
-                                        <div class="p-1"><p>{{$chat->latest_message_text}}</p></div>
+                                        <div class="p-1 d-flex justify-content-start">
+                                            <div class="mr-2 ml-1 crop__chat__sm ">
+                                                @if($chat->latest_message_sender)
+                                                    <img src="{{$chat->getStudentPic()}}" class="mr-2">
+                                                @else
+                                                    <img src="{{$chat->getAdmissionPic()}}" class="mr-2">
+                                                @endif
+                                            </div>
+                                            <div class="">
+                                                <p>{{$chat->latest_message_text}}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="my-2 mx-2 ml-auto d-flex flex-column">
                                         <div class="p-1"><label>{{ date_format(date_create($chat->latest_message_time), "M d Y H:m") }}</label></div>
@@ -103,7 +105,6 @@
                                 </div>
                             </a>
                         @endforeach
-                    </div>
                 </div>
                 @endif
             </div>
