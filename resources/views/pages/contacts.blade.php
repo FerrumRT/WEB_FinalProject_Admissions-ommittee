@@ -12,7 +12,7 @@
             @if(!empty($mem->getPhoneNumber()))
                 <tr>
                     <td>{{ $mem->getName() }}</td>
-                    <td>{{ $mem->getPhoneNumber() }}</td>
+                    <td class="text-iitucolor">{{ $mem->getPhoneNumber() }}</td>
                 </tr>
             @endif
         @endforeach
@@ -35,7 +35,7 @@
             {{ Form::label('message'), 'Question: ' }}
             {{ Form::textarea('message', '', ['class'=> 'form-control', 'rows' => '8', 'cols' => '80']) }}
         </div>
-        {{ Form::submit('Send', ['class'=> 'btn btn-iitucolor']) }}
+        {{ Form::submit('Send', ['class'=> 'btn btn-iitucolor py-2 px-3']) }}
     {!! Form::close() !!}
 </div>
 @endsection

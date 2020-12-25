@@ -5011,6 +5011,20 @@ input[type=button].btn-block {
   color: #fff;
 }
 
+.card-chat {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+}
+
+.card-chat-link:hover {
+    text-decoration: none;
+    background-color: #dbdbdb;
+}
+
 .card {
   position: relative;
   display: flex;

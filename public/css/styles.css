@@ -332,3 +332,21 @@ img.style4, img.style5 {
     object-fit:cover;
     border-radius: 50%
 }
+
+.crop__chat__sm {
+    position: relative;
+    overflow:hidden;
+    width:25px;
+    height:25px;
+}
+
+.crop__chat__sm img{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:25px;
+    height:25px;
+    object-fit:cover;
+    border-radius: 50%
+}
