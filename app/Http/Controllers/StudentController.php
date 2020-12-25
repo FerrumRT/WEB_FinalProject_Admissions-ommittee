@@ -13,19 +13,21 @@ use Mockery\Matcher\Subset;
 
 class StudentController extends Controller
 {
-    private function isAdission(){
+    private function isAdission()
+    {
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
     }
 
-    private function isStudent(int $id){
+    private function isStudent(int $id)
+    {
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
-        if (Auth::user()->id != $id && !Auth::user()->is_admin)
+            abort(403);
+        if (Auth::user()->id != $id && Auth::user()->student_id != null)
             return redirect('/403');
     }
 
@@ -65,7 +67,11 @@ class StudentController extends Controller
     {
         $this->isStudent($id);
         $user = User::find($id);
-        $student = Student::where('user_id',$user->id)->first();
+        if ($user == null)
+            abort(404);
+        $student = Student::where('user_id', $user->id)->first();
+        if ($student == null)
+            abort(404);
         $edu_deg = EducationDegree::all();
         return view("pages/student/profile")->with('title', "Profile - Admission")->with("student", $student)->with("edu_deg", $edu_deg);
     }
@@ -74,6 +80,8 @@ class StudentController extends Controller
     {
         $this->isAdission();
         $student = Student::find($id);
+        if ($student == null)
+            abort(404);
         $edu_deg = EducationDegree::all();
         return view("pages/admin/student_edit")->with('title', "Student - Admission")->with("student", $student)->with("edu_deg", $edu_deg);
     }
@@ -87,7 +95,11 @@ class StudentController extends Controller
         ]);
 
         $user = User::find($id);
+        if ($user == null)
+            abort(404);
         $student = Student::where('user_id', $id)->first();
+        if ($student == null)
+            abort(404);
 
         $user->name = $request->input('name');
         $user->phone_number = $request->input('phone_number');
@@ -101,7 +113,7 @@ class StudentController extends Controller
         $user->save();
         $student->save();
 
-        return redirect('/profile/student/'.$id)->with('success', 'Profile updated');
+        return redirect('/profile/student/' . $id)->with('success', 'Profile updated');
     }
 
     public function update_photo(Request $request, $id)
@@ -113,15 +125,17 @@ class StudentController extends Controller
         ]);
 
         $student = Student::where('user_id', $id)->first();
+        if ($student == null)
+            abort(404);
 
         if (!empty($request->file('image'))) {
             $img_path = $request->file('image')->store('img/student_img', 'public');
-            $student->student_picture_url = '/storage/'.$img_path;
+            $student->student_picture_url = '/storage/' . $img_path;
         }
 
         $student->save();
 
-        return redirect('/profile/student/'.$id)->with('success', 'Profile photo updated');
+        return redirect('/profile/student/' . $id)->with('success', 'Profile photo updated');
     }
 
     public function upload_document(Request $request, $id)
@@ -133,15 +147,17 @@ class StudentController extends Controller
         ]);
 
         $student = Student::where('user_id', $id)->first();
+        if ($student == null)
+            abort(404);
 
         if (!empty($request->file('file'))) {
             $doc_path = $request->file('file')->store('confirm_doc', 'public');
-            $student->confirm_documents_url = '/storage/'.$doc_path;
+            $student->confirm_documents_url = '/storage/' . $doc_path;
         }
 
         $student->save();
 
-        return redirect('/profile/student/'.$id)->with('success', 'Confirmation document uploaded');
+        return redirect('/profile/student/' . $id)->with('success', 'Confirmation document uploaded');
     }
 
     public function update_password(Request $request, $id)
@@ -155,19 +171,21 @@ class StudentController extends Controller
         ]);
 
         $user = User::find($id);
+        if ($user == null)
+            abort(404);
 
         $old = $request->input('old_password');
         $new = $request->input('new_password');
         $re_new = $request->input('re_new_password');
 
         if ($re_new != $new || !(Hash::check($old, $user->password)))
-            return redirect('/profile/admission/'.$id)->with('error', 'Passwords are not match');
+            return redirect('/profile/admission/' . $id)->with('error', 'Passwords are not match');
 
         $user->password = Hash::make($new);
 
         $user->save();
 
-        return redirect('/profile/student/'.$id)->with('success', 'Profile updated');
+        return redirect('/profile/student/' . $id)->with('success', 'Profile updated');
     }
 
     public function update(Request $request, $id)
@@ -180,7 +198,11 @@ class StudentController extends Controller
         ]);
 
         $student = Student::find($id);
+        if ($student == null)
+            abort(404);
         $user = User::find($student->user_id);
+        if ($user == null)
+            abort(404);
 
 
         $user->name = $request->input('name');
@@ -206,7 +228,11 @@ class StudentController extends Controller
     {
         $this->isAdission();
         $student = Student::find($id);
+        if ($student == null)
+            abort(404);
         $user = User::find($student->user_id);
+        if ($user == null)
+            abort(404);
         $student->delete();
         $user->delete();
 

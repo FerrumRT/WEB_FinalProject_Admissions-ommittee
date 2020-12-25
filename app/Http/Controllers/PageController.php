@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AdmissionMember;
 use App\EducationDegree;
 use App\News;
 use Illuminate\Http\Request;
@@ -18,7 +19,12 @@ class PageController extends Controller
 
     public function accessForbidden(){
         $edu_deg = EducationDegree::all();
-        return view('pages.403')->with('title', '403')->with("edu_deg", $edu_deg);
+        return view('errors.403')->with('title', '403')->with("edu_deg", $edu_deg);
+    }
+
+    public function pageNotFound(){
+        $edu_deg = EducationDegree::all();
+        return view('errors.404')->with('title', '404')->with("edu_deg", $edu_deg);
     }
 
     public function about_us(){
@@ -28,7 +34,11 @@ class PageController extends Controller
 
     public function contacts(){
         $edu_deg = EducationDegree::all();
-        return view("pages/contacts")->with('title', "Contacts - Admission")->with("edu_deg", $edu_deg);
+        $adm_mem = AdmissionMember::all();
+        return view("pages/contacts")
+            ->with('title', "Contacts - Admission")
+            ->with("edu_deg", $edu_deg)
+            ->with("adm_mem", $adm_mem);
     }
 
     public function bachelor(){

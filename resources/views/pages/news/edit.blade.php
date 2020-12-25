@@ -25,7 +25,7 @@
             {{Form::hidden('_method', 'PUT')}}
             <div class="container">
                 {{ Form::submit('Submit', ['class'=> 'btn btn-success']) }}
-                <button type="button" class="btn btn-danger float-right" style = 'background-color: darkred; border: darkred;' data-toggle="modal" data-target="#deleteModal">
+                <button type="button" class="btn btn-iitucolor float-right" data-toggle="modal" data-target="#deleteModal">
                     Delete
                 </button>
             </div>
@@ -46,7 +46,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            {{ Form::submit('Delete', ['class'=> 'btn btn-danger', 'style' => 'background-color: darkred; border: darkred;']) }}
+                            {{ Form::submit('Delete', ['class'=> 'btn btn-iitucolor']) }}
                             {{Form::hidden('_method', 'DELETE')}}
                         </div>
                         {!! Form::close() !!}

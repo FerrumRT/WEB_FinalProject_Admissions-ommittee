@@ -20,6 +20,7 @@
                                     </div>
                                 </div>
                             @endif
+                            @if(Auth::user()->student_id==$student->id)
                             <div class="d-flex flex-column mt-3">
                                 <form action="{{ route('student-photo-save', ['id' => $student->user_id]) }}" method="post" enctype="multipart/form-data">
                                     @csrf
@@ -32,6 +33,7 @@
                                     </div>
                                 </form>
                             </div>
+                            @endif
                             <hr>
                             <div class="mb-2 bd-highlight">
                                 <a href="{{route('student-profile', ['id' => $student->user_id])}}" class="btn btn-iitucolor btn-block">Back</a>
@@ -126,6 +128,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @if(Auth::user()->student_id==$student->id)
                             <div class="col-4 d-flex justify-content-end">
                                 <button type="button" class="btn btn-outline-iitucolor ml-3" data-toggle="modal" data-target="#addDocModal">
                                     Add certificate
@@ -163,6 +166,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                         </div>
 
                         @if(!empty($certificates))
@@ -178,6 +182,7 @@
                                                 View
                                             </a>
                                         </div>
+                                        @if(Auth::user()->student_id==$student->id)
                                         <div class="ml-2">
                                             <form action="{{ route('certificate-delete', ['id' => $certificate->id]) }}" method="post">
                                                 @csrf
@@ -186,6 +191,7 @@
                                                 </button>
                                             </form>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
 

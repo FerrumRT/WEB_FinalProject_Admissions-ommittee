@@ -50,10 +50,14 @@
                 <tr>
                     <th scope="col">{{$faculty->id}}</th>
                     <th scope="col">{{$faculty->name}}</th>
-                    <th scope="col">{{$faculty->description}}</th>
-                    <th scope="col">{{$faculty->skills}}</th>
-                    <th scope="col">{{$faculty->outcomes}}</th>
-                    <th scope="col">{{$faculty->leading_position}}</th>
+                    @php $pos=strpos($faculty->description, ' ', 150) @endphp
+                    <th scope="col">{{substr($faculty->description, 0, $pos)}}</th>
+                    @php if (str_contains($faculty->skills, ' ')) $pos=strpos($faculty->skills, ' ', 150); else $pos=-1 @endphp
+                    <th scope="col">{{substr($faculty->skills, 0, $pos)}}</th>
+                    @php if (str_contains($faculty->outcomes, ' ')) $pos=strpos($faculty->outcomes, ' ', 150); else $pos=-1 @endphp
+                    <th scope="col">{{substr($faculty->outcomes, 0, $pos)}}</th>
+                    @php if(str_contains($faculty->leading_position, ' ')) $pos=strpos($faculty->leading_position, ' ', 150); else $pos=-1 @endphp
+                    <th scope="col">{{substr($faculty->leading_position, 0, $pos)}}</th>
                     <th scope="col">{{$faculty->getEduDegName()}}</th>
                     <th scope="col">
                         <a href="{{ route('edit-faculty', ['id' => $faculty->id]) }}" type="button" class="btn btn-sm btn-outline-dark">Edit</a>

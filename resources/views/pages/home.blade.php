@@ -5,10 +5,10 @@
 <section class="container-fluid px-0">
     <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item thumb-post active" >
+            <div class="thumb-post carousel-item active" >
                 <img src="{{ asset('img/head_carousel_1.jpg') }}" class="d-block w-100">
             </div>
-            <div class="carousel-item thumb-post">
+            <div class="thumb-post carousel-item">
                 <img src="{{ asset('img/head_carousel_2.jpg') }}" class="d-block w-100">
             </div>
         </div>
@@ -21,9 +21,6 @@
         <div class="col-4">
             <h2>
                 News
-
-                <a href="{{ route('news') }}" class="btn btn-outline-iitucolor ml-3">All news</a>
-
                 @guest
 
                 @else

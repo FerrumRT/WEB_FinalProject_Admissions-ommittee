@@ -27,16 +27,16 @@ class AdmissionMemberController extends Controller
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
     }
 
     private function isAdmissionId(int $id){
         if (Auth::user() == null)
             return redirect('/login');
         if (!Auth::user()->is_admin)
-            return redirect('/403');
+            abort(403);
         if (Auth::user()->id != $id)
-            return redirect('/403');
+            abort(403);
     }
 
     public function store(Request $request)
@@ -72,7 +72,11 @@ class AdmissionMemberController extends Controller
     {
         $this->isAdmissionId($id);
         $user = User::find($id);
+        if($user==null)
+            abort(404);
         $admission_member = AdmissionMember::where('user_id',$user->id)->first();
+        if($admission_member==null)
+            abort(404);
         $ad_mem_img = \Storage::disk('public')->url($admission_member->image_url);
         $edu_deg = EducationDegree::all();
         return view("pages/ad_mem/profile")->with('title', "Profile - Admission")
@@ -86,6 +90,8 @@ class AdmissionMemberController extends Controller
         $this->isAdmission();
 
         $admission_member = AdmissionMember::find($id);
+        if($admission_member==null)
+            abort(404);
         return view("pages/admin/ad_mem_edit")->with('title', "Admission Members - Admission")->with("admission_member", $admission_member);
     }
 
@@ -98,6 +104,9 @@ class AdmissionMemberController extends Controller
         ]);
 
         $user = User::find($id);
+
+        if($user==null)
+            abort(404);
 
         $user->name = $request->input('name');
         $user->phone_number = $request->input('phone_number');
@@ -117,6 +126,8 @@ class AdmissionMemberController extends Controller
         ]);
 
         $admission_member = AdmissionMember::where('user_id', $id)->first();
+        if($admission_member == null)
+            abort(404);
 
         if (!empty($request->file('image'))) {
             $img_path = $request->file('image')->store('img/ad_mem_img', 'public');
@@ -139,6 +150,9 @@ class AdmissionMemberController extends Controller
         ]);
 
         $user = User::find($id);
+
+        if ($user == null)
+            abort(404);
 
         $old = $request->input('old_password');
         $new = $request->input('new_password');
@@ -164,7 +178,11 @@ class AdmissionMemberController extends Controller
         ]);
 
         $admission_member = AdmissionMember::find($id);
+        if($admission_member==null)
+            abort(404);
         $user = User::find($admission_member->user_id);
+        if($user==null)
+            abort(404);
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -192,7 +210,11 @@ class AdmissionMemberController extends Controller
     {
         $this->isAdmission();
         $admission_member = AdmissionMember::find($id);
+        if($admission_member==null)
+            abort(404);
         $user = User::find($admission_member->user_id);
+        if($user==null)
+            abort(404);
         $admission_member->delete();
         $user->delete();
         return redirect('/admin/admission_members')->with('success', 'Admission member deleted');
