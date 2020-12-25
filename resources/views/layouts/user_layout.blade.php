@@ -111,7 +111,7 @@
         <a class="nav-link link text-white" href="{{ route('edu-deg-info', ['name' => $deg->name]) }}"><span style="text-transform:uppercase;">{{ $deg->name }} PROGRAM</span></a>
     @endforeach
 </nav>
-<div class="container-fluid p-0 my-4" style="min-height: 468px">
+<div class="container-fluid p-0" style="min-height: 468px">
     @include('inc.message')
     @yield('content')
 </div>

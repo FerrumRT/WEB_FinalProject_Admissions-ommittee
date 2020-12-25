@@ -18,9 +18,10 @@ class CreateMessagesTable extends Migration
             $table->text("message_text");
             $table->boolean("read_by_receiver")->default(false);
             $table->timestamp("send_date")->useCurrent();
-            $table->foreignId("student_id")->constrained("students");
-            $table->foreignId("admission_member_id")->constrained("admission_members");
-            $table->foreignId("chat_id")->constrained("chats");
+            $table->boolean("student_sender")->nullable();
+            $table->foreignId("student_id")->constrained("students")->nullable();
+            $table->foreignId("admission_member_id")->constrained("admission_members")->nullable();
+            $table->foreignId("chat_id")->constrained("chats")->nullable();
             $table->timestamps();
         });
     }
