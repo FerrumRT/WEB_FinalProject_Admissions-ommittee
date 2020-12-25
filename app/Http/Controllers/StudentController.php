@@ -17,7 +17,7 @@ class StudentController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_admin)
+        if (Auth::user()->student_id == null)
             abort(403);
     }
 
@@ -25,10 +25,10 @@ class StudentController extends Controller
     {
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_admin)
+        if (Auth::user()->student_id == null)
             abort(403);
-        if (Auth::user()->id != $id && Auth::user()->student_id != null)
-            return redirect('/403');
+        if (Auth::user()->id != $id && Auth::user()->student_id == null)
+            abort(403);
     }
 
     public function store(Request $request)
@@ -65,7 +65,6 @@ class StudentController extends Controller
 
     public function show(int $id)
     {
-        $this->isStudent($id);
         $user = User::find($id);
         if ($user == null)
             abort(404);

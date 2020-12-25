@@ -18,22 +18,29 @@ class ChatController extends Controller
     {
         $student = null;
         $admission_member = null;
-        if (Auth::user()->admission_member_id!=null)
+        if (Auth::user()->admission_member_id != null)
             $admission_member = AdmissionMember::find(Auth::user()->admission_member_id);
-        else if(Auth::user()->student_id!=null)
+        else if (Auth::user()->student_id != null)
             $student = Student::find(Auth::user()->student_id);
 
 
         $edu_deg = EducationDegree::all();
         $chats = Chat::find($id);
-        $messages = Message::where('chat_id', $id)->get();
-        return view("pages/online_reception/chat")
-            ->with('title', "Online reception")
-            ->with("student", $student)
-            ->with("admission_member", $admission_member)
-            ->with("edu_deg", $edu_deg)
-            ->with("chats", $chats)
-            ->with("messages", $messages);
+        if ($chats == null)
+            abort(404);
+        if ($admission_member!=null && $admission_member->id == $chats->admission_member_id ||
+            $student!=null && $student->id == $chats->student_id) {
+            $messages = Message::where('chat_id', $id)->get();
+            return view("pages/online_reception/chat")
+                ->with('title', "Online reception")
+                ->with("student", $student)
+                ->with("admission_member", $admission_member)
+                ->with("edu_deg", $edu_deg)
+                ->with("chats", $chats)
+                ->with("messages", $messages);
+        }
+        else
+            abort(403);
     }
 
     public function answer($ad_id, $id)
@@ -54,11 +61,11 @@ class ChatController extends Controller
                 'student_id' => $message->student_id,
                 'admission_member_id' => $admission_member->id,
             ]);
-        }else{
+        } else {
             DB::table('chats')->where('id', $chat->id)->update([
-                'latest_message_text'=> $message->message_text,
-                'latest_message_time'=> $message->send_date,
-                'latest_message_sender'=> true,
+                'latest_message_text' => $message->message_text,
+                'latest_message_time' => $message->send_date,
+                'latest_message_sender' => true,
             ]);
 
         }
@@ -66,7 +73,7 @@ class ChatController extends Controller
         $message->chat_id = $chat->id;
         $message->admission_member_id = $admission_member->id;
         $message->save();
-        return redirect('/reception/'.$chat->id);
+        return redirect('/reception/' . $chat->id);
     }
 
     public function send_student(Request $request, $u_id, $id)
@@ -84,20 +91,20 @@ class ChatController extends Controller
             'send_date' => Carbon::now(),
             'student_sender' => true,
             'student_id' => $student->id,
-            'admission_member_id' =>$chat->admission_member_id,
+            'admission_member_id' => $chat->admission_member_id,
             'chat_id' => $id
         ]);
 
         DB::table('chats')->where('id', $chat->id)->update([
-            'latest_message_text'=> $request['message_text'],
-            'latest_message_time'=> $message->send_date,
-            'latest_message_sender'=> true,
+            'latest_message_text' => $request['message_text'],
+            'latest_message_time' => $message->send_date,
+            'latest_message_sender' => true,
         ]);
 
-        return redirect('/reception/'.$id);
+        return redirect('/reception/' . $id);
     }
 
-    public function send_admission(Request $request,  $u_id, $id)
+    public function send_admission(Request $request, $u_id, $id)
     {
         $this->validate($request, [
             'message_text' => 'required',
@@ -112,17 +119,17 @@ class ChatController extends Controller
             'send_date' => Carbon::now(),
             'student_sender' => false,
             'admission_member_id' => $admission_member->id,
-            'student_id' =>$chat->student_id,
+            'student_id' => $chat->student_id,
             'chat_id' => $id
         ]);
 
         DB::table('chats')->where('id', $chat->id)->update([
-            'latest_message_text'=> $request['message_text'],
-            'latest_message_time'=> $message->send_date,
-            'latest_message_sender'=> false,
+            'latest_message_text' => $request['message_text'],
+            'latest_message_time' => $message->send_date,
+            'latest_message_sender' => false,
         ]);
 
-        return redirect('/reception/'.$id);
+        return redirect('/reception/' . $id);
     }
 
 

@@ -20,6 +20,8 @@
                                 </div>
                             </div>
                         @endif
+                        @guest
+                        @else
                         @if(Auth::user()->admission_member_id==$admission_member->id)
                        <div class="d-flex flex-column bd-highlight mt-3">
                            <form action="{{ route('ad-mem-photo-save', ['id' => $admission_member->user_id]) }}" method="post" enctype="multipart/form-data">
@@ -34,6 +36,7 @@
                            </form>
                        </div>
                         @endif
+                        @endguest
                     </div>
                 </div>
                 </div>
@@ -75,6 +78,8 @@
                         </div>
                     </div>
                 </div>
+                @guest
+                @else
                 @if(Auth::user()->admission_member_id==$admission_member->id)
                 <div class="card mt-3">
                     <div class="card-body">
@@ -159,6 +164,7 @@
                     </div>
                 </div>
                 @endif
+                @endguest
             </div>
         </div>
     </div>

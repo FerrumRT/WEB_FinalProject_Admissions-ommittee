@@ -26,14 +26,14 @@ class AdmissionMemberController extends Controller
     private function isAdmission(){
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_admin)
+        if (Auth::user()->admission_id == null)
             abort(403);
     }
 
     private function isAdmissionId(int $id){
         if (Auth::user() == null)
             return redirect('/login');
-        if (!Auth::user()->is_admin)
+        if (Auth::user()->admission_id == null)
             abort(403);
         if (Auth::user()->id != $id)
             abort(403);
@@ -70,7 +70,6 @@ class AdmissionMemberController extends Controller
 
     public function show(int $id)
     {
-        $this->isAdmissionId($id);
         $user = User::find($id);
         if($user==null)
             abort(404);

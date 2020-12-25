@@ -20,6 +20,8 @@
                                     </div>
                                 </div>
                             @endif
+                            @guest
+                            @else
                             @if(Auth::user()->student_id==$student->id)
                             <div class="d-flex flex-column mt-3">
                                 <form action="{{ route('student-photo-save', ['id' => $student->user_id]) }}" method="post" enctype="multipart/form-data">
@@ -34,6 +36,7 @@
                                 </form>
                             </div>
                             @endif
+                            @endguest
                             <hr>
                             <div class="mb-2 bd-highlight">
                                 <a href="{{route('certificates', ['id' => $student->user_id])}}" class="btn btn-iitucolor btn-block">Certificates</a>
@@ -127,6 +130,8 @@
                                 </div>
                             </div>
                         @endif
+                        @guest
+                        @else
                         @if(Auth::user()->student_id==$student->id)
                         <div class="d-flex flex-column bd-highlight mt-3">
                             <form action="{{ route('student-doc-save', ['id' => $student->user_id]) }}" method="post" enctype="multipart/form-data">
@@ -142,8 +147,11 @@
                             </form>
                         </div>
                         @endif
+                        @endguest
                     </div>
                 </div>
+                @guest
+                @else
                 @if(Auth::user()->student_id==$student->id)
                 <div class="card mt-3">
                     <div class="card-body">
@@ -259,6 +267,7 @@
                     </div>
                 </div>
                 @endif
+                @endguest
             </div>
         </div>
     </div>

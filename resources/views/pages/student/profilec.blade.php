@@ -20,6 +20,8 @@
                                     </div>
                                 </div>
                             @endif
+                            @guest
+                            @else
                             @if(Auth::user()->student_id==$student->id)
                             <div class="d-flex flex-column mt-3">
                                 <form action="{{ route('student-photo-save', ['id' => $student->user_id]) }}" method="post" enctype="multipart/form-data">
@@ -34,6 +36,7 @@
                                 </form>
                             </div>
                             @endif
+                            @endguest
                             <hr>
                             <div class="mb-2 bd-highlight">
                                 <a href="{{route('student-profile', ['id' => $student->user_id])}}" class="btn btn-iitucolor btn-block">Back</a>
@@ -128,6 +131,8 @@
                                     </div>
                                 </div>
                             </div>
+                            @guest
+                            @else
                             @if(Auth::user()->student_id==$student->id)
                             <div class="col-4 d-flex justify-content-end">
                                 <button type="button" class="btn btn-outline-iitucolor ml-3" data-toggle="modal" data-target="#addDocModal">
@@ -167,6 +172,7 @@
                                 </div>
                             </div>
                             @endif
+                            @endguest
                         </div>
 
                         @if(!empty($certificates))
@@ -182,6 +188,8 @@
                                                 View
                                             </a>
                                         </div>
+                                        @guest
+                                        @else
                                         @if(Auth::user()->student_id==$student->id)
                                         <div class="ml-2">
                                             <form action="{{ route('certificate-delete', ['id' => $certificate->id]) }}" method="post">
@@ -192,6 +200,7 @@
                                             </form>
                                         </div>
                                         @endif
+                                        @endguest
                                     </div>
                                 </div>
 

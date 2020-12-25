@@ -27,9 +27,9 @@ Route::get('/{name}/info', 'EducationDegreesController@show')->name('edu-deg-inf
 
 Route::get('/faculties/{id}', 'FacultiesController@show')->name('faculty-info');
 
-Route::get('/profile/student/{id}', 'StudentController@show')->name('student-profile')->middleware('auth');
+Route::get('/profile/student/{id}', 'StudentController@show')->name('student-profile');
 
-Route::get('/profile/admission/{id}', 'AdmissionMemberController@show')->name('ad-mem-profile')->middleware('auth');
+Route::get('/profile/admission/{id}', 'AdmissionMemberController@show')->name('ad-mem-profile');
 
 Route::post('/save/admission/{id}/profile', 'AdmissionMemberController@update_profile')->name('ad-mem-profile-save')->middleware('auth');
 
@@ -45,7 +45,7 @@ Route::post('/save/student/{id}/photo', 'StudentController@update_photo')->name(
 
 Route::post('/save/student/{id}/doc', 'StudentController@upload_document')->name('student-doc-save')->middleware('auth');
 
-Route::get('/student/{id}/certificates', 'CertificateController@show')->name('certificates')->middleware('auth');
+Route::get('/student/{id}/certificates', 'CertificateController@show')->name('certificates');
 
 Route::post('/student/{id}/certificates/upload', 'CertificateController@upload_certificate')->name('certificate-upload')->middleware('auth');
 
