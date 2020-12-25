@@ -10,13 +10,13 @@
                         @if($admission_member->image_url != null)
                             <div class="d-flex justify-content-center">
                                 <div class="crop ">
-                                    <img src="{{$admission_member->image_url}}" class="card-img-top">
+                                    <img src="{{$admission_member->image_url}}" style="border-radius: 5%" class="card-img-top">
                                 </div>
                             </div>
                         @else
                             <div class="d-flex justify-content-center">
                                 <div class="crop ">
-                                    <img src="{{ asset('img/default_user.jpg') }}" class="card-img-top">
+                                    <img src="{{ asset('img/default_user.jpg') }}" style="border-radius: 5%" class="card-img-top">
                                 </div>
                             </div>
                         @endif

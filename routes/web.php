@@ -55,15 +55,17 @@ Route::get('/result', 'NewsController@search')->name('news');
 /** Online reception */
 Route::get('/reception/student', 'MessageController@show_student')->name('reception-student')->middleware('auth');
 
-Route::post('/reception/student/send', 'MessageController@send_student')->name('reception-student-send')->middleware('auth');
+Route::post('/reception/student/{id}/send', 'MessageController@send_student')->name('reception-student-send')->middleware('auth');
 
 Route::get('/reception/admission', 'MessageController@show_admission')->name('reception-admission')->middleware('auth');
 
 Route::get('/reception/{id}', 'ChatController@show')->name('reception-chat')->middleware('auth');
 
-Route::post('/reception/{id}/send_by_st', 'ChatController@send_student')->name('reception-chat-st-send')->middleware('auth');
+Route::post('/reception/{ad_id}/answer/{id}', 'ChatController@answer')->name('reception-answer')->middleware('auth');
 
-Route::post('/reception/{id}/send_by_ad', 'ChatController@send_admission')->name('reception-chat-ad-send')->middleware('auth');
+Route::post('/reception/{u_id}/send_by_st/{id}', 'ChatController@send_student')->name('reception-chat-st-send')->middleware('auth');
+
+Route::post('/reception/{u_id}/send_by_ad/{id}', 'ChatController@send_admission')->name('reception-chat-ad-send')->middleware('auth');
 /** end */
 
 /** Admin panel
